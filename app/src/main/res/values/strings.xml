@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Philanthropic Manager</string>
+    <string name="edt_login">User</string>
+    <string name="edt_password">Password</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_exit">Exit</string>
+    <string name="btn_logout">Logout</string>
+    <string name="tx_welcome">Welcome {User.name}</string>
+    <string name="btn_financial">Financial</string>
+    <string name="btn_calendar">Calendar</string>
+    <string name="btn_works">Works</string>
+    <string name="btn_philanthropies">Philanthropies</string>
+    <string name="btn_settings">Settings</string>
+    <string name="tab_1">Cashier</string>
+    <string name="tab_2">Institution</string>
+    <string name="Title_activity">Financial</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
