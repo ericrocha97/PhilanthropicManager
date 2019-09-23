@@ -8,69 +8,51 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryLight">
+        android:layout_width="match_parent">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            app:tabIndicatorColor="@color/colorPrimary"
-            app:tabIndicatorGravity="bottom"
-            app:tabMode="fixed"
-            app:tabTextColor="@color/colorPrimary">
+            android:isScrollContainer="false"
+            app:tabGravity="fill"
+            app:tabMode="fixed">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tab_1" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tab_2" />
-
         </com.google.android.material.tabs.TabLayout>
 
+
     </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/abas_view_pager"
         android:layout_width="match_parent"
-
-        android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+        android:layout_height="match_parent" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:backgroundTint="@color/colorPrimaryLight"
-        app:layout_anchor="@+id/nestedScrollView"
-        app:layout_anchorGravity="bottom|center" />
+        android:layout_gravity="bottom" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_add"
+        android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:focusable="true"
-        app:backgroundTint="@color/colorPrimary"
         app:layout_anchor="@+id/bottomAppBar"
         app:layout_anchorGravity="top|center"
-        app:srcCompat="@drawable/ic_add_white_32dp" />
+        app:srcCompat="@drawable/ic_add_black_24dp"
+        android:focusable="true" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
