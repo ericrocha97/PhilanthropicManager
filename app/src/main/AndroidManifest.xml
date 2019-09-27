@@ -12,10 +12,10 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".settings" android:screenOrientation="portrait"></activity>
-        <activity android:name=".philanthropies" android:screenOrientation="portrait" />
-        <activity android:name=".works"  android:screenOrientation="portrait"/>
-        <activity android:name=".Calendar" android:screenOrientation="portrait" />
+        <activity android:name=".settings" android:screenOrientation="portrait" android:theme="@style/FinancialTheme" />
+        <activity android:name=".philanthropies" android:screenOrientation="portrait" android:theme="@style/FinancialTheme" />
+        <activity android:name=".works"  android:screenOrientation="portrait" android:theme="@style/FinancialTheme"/>
+        <activity android:name=".Calendar" android:screenOrientation="portrait" android:theme="@style/FinancialTheme" />
         <activity android:name=".financial" android:screenOrientation="portrait" android:theme="@style/FinancialTheme" />
         <activity android:name=".Main" android:screenOrientation="portrait" />
         <activity android:name=".Login" android:screenOrientation="portrait">
