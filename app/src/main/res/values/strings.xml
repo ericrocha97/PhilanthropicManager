@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Philanthropic Manager</string>
     <string name="edt_login">User</string>
     <string name="edt_password">Password</string>
     <string name="btn_login">Login</string>
@@ -72,7 +71,9 @@
     <string name="treasurer">Treasurer</string>
     <string name="philanthropy_president">Philanthropy President</string>
     <string name="registrar">Registrar</string>
-    <string name="president_works">President of works</string>
+    <string name="president_works">Working president</string>
+    <string name="app_name">Philanthropic Manager</string>
+
 
 
 </resources>

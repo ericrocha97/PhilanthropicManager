@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="doc_types">
-        <item>Minutes</item>
-        <item>Protocol</item>
+        <item>Atas</item>
+        <item>Protocolo</item>
     </string-array>
 
     <string-array name="user_level">
-        <item>Grade 1</item>
-        <item>Grade 2</item>
+        <item>Grau 1</item>
+        <item>Grau 2</item>
     </string-array>
 
     <string-array name="Administration">
