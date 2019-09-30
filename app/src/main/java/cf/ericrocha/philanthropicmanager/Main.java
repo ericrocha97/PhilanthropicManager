@@ -30,8 +30,13 @@ public class Main extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void documents(View view){
+        Intent intent = new Intent(this, documents.class);
+        startActivity(intent);
+    }
+
     public void settings(View view){
-        Intent intent = new Intent(this, settings.class);
+        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
 

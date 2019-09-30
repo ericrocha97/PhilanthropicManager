@@ -12,7 +12,7 @@
     tools:context=".works">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/first_input"
+            android:id="@+id/work_title_l"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -23,13 +23,14 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/work_title_ed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="hint" />
+                android:hint="@string/work_title" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/seconde_input"
+            android:id="@+id/work_desc_l"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -37,16 +38,19 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/first_input">
+            app:layout_constraintTop_toBottomOf="@id/work_title_l">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/work_desc_ed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="hint" />
+                android:gravity="center_vertical"
+                android:hint="@string/work_description"
+                android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/terceiro_input"
+            android:id="@+id/work_place_l"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -54,16 +58,18 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seconde_input">
+            app:layout_constraintTop_toBottomOf="@id/work_desc_l">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/work_place_ed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="hint" />
+                android:inputType="textAutoComplete"
+                android:hint="@string/work_member" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/q_input"
+            android:id="@+id/work_date_l"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -71,18 +77,37 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/terceiro_input">
+            app:layout_constraintTop_toBottomOf="@id/work_place_l">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/data"
+                android:id="@+id/work_date_ed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_today_black_32dp"
-                android:hint="Data"
+                android:hint="@string/work_date"
                 android:inputType="date" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <Button
+            android:id="@+id/btn_work_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="120dp"
+            android:text="@string/btn_confirm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/work_date_l" />
+
+        <Button
+            android:id="@+id/btn_work_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/btn_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/work_date_l" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

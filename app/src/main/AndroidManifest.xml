@@ -8,17 +8,51 @@
         android:icon="@mipmap/ic_app"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_app_round"
-        android:supportsRtl="true"
         android:screenOrientation="portrait"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".settings" android:screenOrientation="portrait" android:theme="@style/FinancialTheme" />
-        <activity android:name=".philanthropies" android:screenOrientation="portrait" android:theme="@style/FinancialTheme" />
-        <activity android:name=".works"  android:screenOrientation="portrait" android:theme="@style/FinancialTheme"/>
-        <activity android:name=".Calendar" android:screenOrientation="portrait" android:theme="@style/FinancialTheme" />
-        <activity android:name=".financial" android:screenOrientation="portrait" android:theme="@style/FinancialTheme" />
-        <activity android:name=".Main" android:screenOrientation="portrait" />
-        <activity android:name=".Login" android:screenOrientation="portrait">
+        <activity android:name=".general_settings"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinancialTheme"/>
+        <activity
+            android:name=".user_preference"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinancialTheme" />
+        <activity
+            android:name=".Settings"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinancialTheme" />
+        <activity
+            android:name=".new_user"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinancialTheme" />
+        <activity
+            android:name=".documents"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinancialTheme" />
+        <activity
+            android:name=".philanthropies"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinancialTheme" />
+        <activity
+            android:name=".works"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinancialTheme" />
+        <activity
+            android:name=".Calendar"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinancialTheme" />
+        <activity
+            android:name=".financial"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinancialTheme" />
+        <activity
+            android:name=".Main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,5 +60,8 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
 
 </manifest>

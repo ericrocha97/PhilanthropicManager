@@ -16,15 +16,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class works extends AppCompatActivity {
+public class new_user extends AppCompatActivity {
 
     EditText edittext;
     TextInputLayout test;
 
     java.util.Calendar myCalendar = java.util.Calendar.getInstance();
-
-
-
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -51,21 +48,21 @@ public class works extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_works);
-        test = findViewById(R.id.work_date_l);
+        setContentView(R.layout.activity_new_user);
+        test = findViewById(R.id.user_date_l);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(works.this, date, myCalendar
+                new DatePickerDialog(new_user.this, date, myCalendar
                         .get(java.util.Calendar.YEAR), myCalendar.get(java.util.Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        myCalendar.get(java.util.Calendar.DAY_OF_MONTH)).show();
             }
         });
-        edittext = findViewById(R.id.work_date_ed);
+        edittext = findViewById(R.id.user_date_ed);
         edittext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(works.this, date, myCalendar
+                new DatePickerDialog(new_user.this, date, myCalendar
                         .get(java.util.Calendar.YEAR), myCalendar.get(java.util.Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -73,9 +70,8 @@ public class works extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.btn_works));
+        getSupportActionBar().setTitle(getString(R.string.users_title));
     }
-
 
 
 
@@ -83,7 +79,7 @@ public class works extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(this, Main.class));
+                startActivity(new Intent(this, Settings.class));
                 finishAffinity();
                 break;
             default:break;
@@ -91,10 +87,9 @@ public class works extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     public void onBackPressed(){
-        startActivity(new Intent(this, Main.class));
+        startActivity(new Intent(this, Settings.class));
         finishAffinity();
     }
 }

@@ -11,11 +11,68 @@
     <string name="btn_works">Works</string>
     <string name="btn_philanthropies">Philanthropies</string>
     <string name="btn_settings">Settings</string>
+    <string name="btn_documents">Documents</string>
     <string name="tab_1">Cashier</string>
     <string name="tab_2">Institution</string>
     <string name="Title_activity">Financial</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="btn_cancel">Cancel</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="work_title">Work title</string>
+    <string name="work_description">Work description</string>
+    <string name="work_member">Member who will do the work</string>
+    <string name="work_date">Work date</string>
+
+
+    <string name="philanthropy_title">Philanthropy title</string>
+    <string name="philanthropy_description">Philanthropy description</string>
+    <string name="philanthropy_place">Place of philanthropy</string>
+    <string name="philanthropy_date">Philanthropy date</string>
+
+
+    <string name="doc_title">Document Description</string>
+    <string name="doc_desc">Precedent</string>
+    <string name="doc_type_tx">Document Type</string>
+    <string name="doc_name_hit">Select a file or open camera</string>
+    <string name="cam_image_text">Image of selected camera</string>
+    <string name="title_activity_settings_test">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="users_title">User registration</string>
+    <string name="General_Settings">General Settings</string>
+    <string name="title_activity_settings2">Settings</string>
+    <string name="user_preference">User preference</string>
+    <string name="user_name">Name</string>
+    <string name="user_date">Date of birth</string>
+    <string name="user_cid">CID</string>
+    <string name="user_address">Address</string>
+    <string name="user_cep">CEP</string>
+    <string name="user_level">Level</string>
+    <string name="user_tel">Phone</string>
+    <string name="tx_administration">Choose administration</string>
+    <string name="leader_one">Leader 1</string>
+    <string name="leader_two">Leader 2</string>
+    <string name="leader_three">Leader 3</string>
+    <string name="treasurer">Treasurer</string>
+    <string name="philanthropy_president">Philanthropy President</string>
+    <string name="registrar">Registrar</string>
+    <string name="president_works">President of works</string>
+
 
 </resources>

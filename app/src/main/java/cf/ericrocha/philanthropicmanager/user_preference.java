@@ -6,22 +6,22 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class settings extends AppCompatActivity {
+public class user_preference extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_user_preference);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.btn_financial));
+        getSupportActionBar().setTitle(getString(R.string.user_preference));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(this, Main.class));
+                startActivity(new Intent(this, Settings.class));
                 finishAffinity();
                 break;
             default:break;
@@ -32,7 +32,7 @@ public class settings extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        startActivity(new Intent(this, Main.class));
+        startActivity(new Intent(this, Settings.class));
         finishAffinity();
     }
 }

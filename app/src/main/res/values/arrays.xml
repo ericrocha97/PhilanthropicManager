@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="doc_types">
+        <item>Minutes</item>
+        <item>Protocol</item>
+    </string-array>
+
+    <string-array name="user_level">
+        <item>Grade 1</item>
+        <item>Grade 2</item>
+    </string-array>
+
+    <string-array name="Administration">
+        <item>1/2019</item>
+        <item>2/2019</item>
+        <item>1/2020</item>
+        <item>2/2020</item>
+        <item>1/2021</item>
+        <item>2/2021</item>
+        <item>1/2022</item>
+        <item>2/2022</item>
+    </string-array>
+
+</resources>
