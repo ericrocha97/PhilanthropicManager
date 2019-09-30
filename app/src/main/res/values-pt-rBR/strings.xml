@@ -13,7 +13,7 @@
     <string name="btn_exit">Sair</string>
     <string name="btn_financial">Financeiro</string>
     <string name="btn_login">Login</string>
-    <string name="btn_logout">Login</string>
+    <string name="btn_logout">Logout</string>
     <string name="btn_philanthropies">Filantropias</string>
     <string name="btn_settings">Configurações</string>
     <string name="btn_works">Trabalhos</string>
