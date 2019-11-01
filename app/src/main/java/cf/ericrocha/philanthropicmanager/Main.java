@@ -1,17 +1,30 @@
 package cf.ericrocha.philanthropicmanager;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import cf.ericrocha.philanthropicmanager.helper.DBHelper;
+
 public class Main extends AppCompatActivity {
+
+    TextView wellcome;
+    DBHelper db;
+    private SQLiteDatabase le;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        db = new DBHelper(this);
+        le = db.getReadableDatabase();
+        wellcome = findViewById(R.id.tx_welcome);
+
+
     }
 
     public void financial(View view){
