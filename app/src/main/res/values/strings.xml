@@ -4,7 +4,7 @@
     <string name="btn_login">Login</string>
     <string name="btn_exit">Exit</string>
     <string name="btn_logout">Logout</string>
-    <string name="tx_welcome">Welcome {User.name}</string>
+    <string name="tx_welcome">Welcome</string>
     <string name="btn_financial">Financial</string>
     <string name="btn_calendar">Calendar</string>
     <string name="btn_works">Works</string>

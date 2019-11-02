@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,9 +17,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import cf.ericrocha.philanthropicmanager.helper.DBHelper;
+
 public class works extends AppCompatActivity {
 
-    EditText edittext;
+    DBHelper db;
+    EditText ed_dt_work;
+    EditText ed_work;
+    EditText ed_desc_work;
+    EditText ed_member_work;
+
     TextInputLayout test;
 
     java.util.Calendar myCalendar = java.util.Calendar.getInstance();
@@ -45,13 +53,14 @@ public class works extends AppCompatActivity {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
 
-        edittext.setText(sdf.format(myCalendar.getTime()));
+        ed_dt_work.setText(sdf.format(myCalendar.getTime()));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_works);
+        db = new DBHelper(this);
         test = findViewById(R.id.work_date_l);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +70,8 @@ public class works extends AppCompatActivity {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-        edittext = findViewById(R.id.work_date_ed);
-        edittext.setOnClickListener(new View.OnClickListener() {
+        ed_dt_work = findViewById(R.id.work_date_ed);
+        ed_dt_work.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(works.this, date, myCalendar
@@ -70,6 +79,9 @@ public class works extends AppCompatActivity {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+        ed_work = findViewById(R.id.work_title_ed);
+        ed_desc_work = findViewById(R.id.work_desc_ed);
+        ed_member_work = findViewById(R.id.work_member_ed);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -96,5 +108,34 @@ public class works extends AppCompatActivity {
     public void onBackPressed(){
         startActivity(new Intent(this, Main.class));
         finishAffinity();
+    }
+    public void clear(){
+        ed_work.setText("");
+        ed_desc_work.setText("");
+        ed_dt_work.setText("");
+        ed_member_work.setText("");
+    }
+
+    public void work_Confirm(View view){
+        String titulo = ed_work.getText().toString().trim();
+        String desc = ed_desc_work.getText().toString().trim();
+        String dt = ed_dt_work.getText().toString().trim();
+        String membro = ed_member_work.getText().toString().trim();
+
+        if(titulo.equals("") || desc.equals("") || dt.equals("") || membro.equals("")){
+            Toast.makeText(this,"Favor preencher todos os campos!", Toast.LENGTH_SHORT).show();
+        }else{
+            db.addWork(titulo,desc,membro,dt);
+            Toast.makeText(this,"Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
+            clear();
+        }
+
+
+
+    }
+
+    public void work_Cancel(View view){
+        Toast.makeText(this,"Cadastro cancelado!", Toast.LENGTH_SHORT).show();
+        clear();
     }
 }

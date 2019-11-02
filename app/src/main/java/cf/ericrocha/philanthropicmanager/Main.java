@@ -15,14 +15,25 @@ public class Main extends AppCompatActivity {
     TextView wellcome;
     DBHelper db;
     private SQLiteDatabase le;
+    public session Session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = new DBHelper(this);
+       // Session = new session(this);
         le = db.getReadableDatabase();
         wellcome = findViewById(R.id.tx_welcome);
+        Intent it = getIntent();
+
+        //Recuperei a string da outra activity
+        String nomeuser = it.getStringExtra("Username");
+
+        String concat = getString(R.string.tx_welcome);
+        //String nomeuser = Session.getUsername();
+        String tx = concat +" "+ nomeuser;
+        wellcome.setText(tx);
 
 
     }

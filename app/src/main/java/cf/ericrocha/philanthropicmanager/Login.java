@@ -1,10 +1,8 @@
 package cf.ericrocha.philanthropicmanager;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,6 +18,7 @@ public class Login extends AppCompatActivity {
     EditText username;
     EditText password;
     DBHelper db;
+    public session Session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,46 +27,9 @@ public class Login extends AppCompatActivity {
         username = findViewById(R.id.edt_login);
         password = findViewById(R.id.edt_password);
         db = new DBHelper(this);
-        escreve = db.getWritableDatabase();
-        le = db.getReadableDatabase();
-
-        try{
-            //Inserir dados
-            ContentValues cv = new ContentValues();
-            cv.put("cod_usuario",1);
-            cv.put("username", "admin");
-            cv.put("password","admin123");
-            escreve.insert ("usuarios",null,cv);
-            Toast.makeText(Login.this,"SHOW",Toast.LENGTH_SHORT).show();
-
-        } catch (Exception e) {
-            Toast.makeText(Login.this,"ERROR",Toast.LENGTH_SHORT).show();
-            //Toast.makeText(MainActivity.this,personName + " " + personEmail,Toast.LENGTH_SHORT).show();
-            Log.i("Info","Erro");
-            e.printStackTrace();
-        }
+        Session = new session();
     }
 
-    /*
-    * String user = mTextUsername.getText().toString().trim();
-                String pwd = mTextPassword.getText().toString().trim();
-                Boolean res = db.checkUser(user, pwd);
-                if(res)
-                {
-                    Intent HomePage = new Intent(LoginActivity.this,HomeActivity.class);
-                    startActivity(HomePage);
-                }
-                else
-                {
-                    Toast.makeText(LoginActivity.this,"Login Error", Toast.LENGTH_SHORT).show();
-                }
-    *
-    *
-    *
-    *
-    *
-    *
-    * */
 
     public void login(View view){
 
@@ -76,7 +38,10 @@ public class Login extends AppCompatActivity {
         Boolean res = db.checkUser(user, pwd);
         if(res)
         {
+            Session.setLogin(user);
+            Session.setUsername(db.nameUser(user,pwd));
             Intent intent = new Intent(this, Main.class);
+            intent.putExtra("Username", Session.getUsername());
             startActivity(intent);
         }
         else

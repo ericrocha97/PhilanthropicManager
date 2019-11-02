@@ -47,7 +47,7 @@
     <string name="title_activity_settings_test">Configurações</string>
     <string name="treasurer">Tesoureiro</string>
     <string name="tx_administration">Escolha a administração</string>
-    <string name="tx_welcome">Bem-vindo, {User.name}</string>
+    <string name="tx_welcome">Bem-vindo</string>
     <string name="user_address">Endereço</string>
     <string name="user_cep">CEP</string>
     <string name="user_cid">CID</string>

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,10 +17,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import cf.ericrocha.philanthropicmanager.helper.DBHelper;
+
 
 public class philanthropies extends AppCompatActivity {
 
-    EditText edittext;
+
+    DBHelper db;
+    EditText ed_dt_phil;
+    EditText ed_phil;
+    EditText ed_desc_phil;
+    EditText ed_place_phil;
     TextInputLayout test;
 
     java.util.Calendar myCalendar = java.util.Calendar.getInstance();
@@ -46,13 +54,14 @@ public class philanthropies extends AppCompatActivity {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
 
-        edittext.setText(sdf.format(myCalendar.getTime()));
+        ed_dt_phil.setText(sdf.format(myCalendar.getTime()));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_philanthropies);
+        db = new DBHelper(this);
         test = findViewById(R.id.philanthropy_date_l);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,8 +71,8 @@ public class philanthropies extends AppCompatActivity {
                         myCalendar.get(java.util.Calendar.DAY_OF_MONTH)).show();
             }
         });
-        edittext = findViewById(R.id.philanthropy_date_ed);
-        edittext.setOnClickListener(new View.OnClickListener() {
+        ed_dt_phil = findViewById(R.id.philanthropy_date_ed);
+        ed_dt_phil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(philanthropies.this, date, myCalendar
@@ -71,6 +80,11 @@ public class philanthropies extends AppCompatActivity {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+
+        ed_phil = findViewById(R.id.philanthropy_title_ed);
+        ed_desc_phil = findViewById(R.id.philanthropy_desc_ed);
+        ed_place_phil = findViewById(R.id.philanthropy_place_ed);
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -95,5 +109,36 @@ public class philanthropies extends AppCompatActivity {
     public void onBackPressed(){
         startActivity(new Intent(this, Main.class));
         finishAffinity();
+    }
+
+
+    public void clear(){
+        ed_phil.setText("");
+        ed_desc_phil.setText("");
+        ed_dt_phil.setText("");
+        ed_place_phil.setText("");
+    }
+
+    public void philanthropies_Confirm(View view){
+        String titulo = ed_phil.getText().toString().trim();
+        String desc = ed_desc_phil.getText().toString().trim();
+        String dt = ed_dt_phil.getText().toString().trim();
+        String lugar = ed_place_phil.getText().toString().trim();
+
+        if(titulo.equals("") || desc.equals("") || dt.equals("") || lugar.equals("")){
+            Toast.makeText(this,"Favor preencher todos os campos!", Toast.LENGTH_SHORT).show();
+        }else{
+            db.addPhilanthropies(titulo,lugar, desc,dt);
+            Toast.makeText(this,"Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
+            clear();
+        }
+
+
+
+    }
+
+    public void philanthropies_Cancel(View view){
+        Toast.makeText(this,"Cadastro cancelado!", Toast.LENGTH_SHORT).show();
+        clear();
     }
 }
