@@ -15,9 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".document_home"
+        <activity android:name=".document_types"></activity>
+        <activity
+            android:name=".document_home"
             android:screenOrientation="portrait"
-            android:theme="@style/FinancialTheme"/>
+            android:theme="@style/FinancialTheme" />
         <activity
             android:name=".general_settings"
             android:screenOrientation="portrait"
