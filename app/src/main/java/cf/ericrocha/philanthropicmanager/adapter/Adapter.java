@@ -3,6 +3,7 @@ package cf.ericrocha.philanthropicmanager.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +39,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
         holder.date.setText( sdf.format(calenderModel.getDate()));
         holder.extra.setText( calenderModel.getExtra() );
+        if(calenderModel.getCor().equals(0)){
+            holder.evento.setBackgroundResource(R.color.colorWork);
+
+        }else{
+            holder.evento.setBackgroundResource(R.color.colorPhilanthropic);
+
+        }
+
     }
 
     @Override
@@ -48,6 +57,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         TextView title;
         TextView date;
         TextView extra;
+        LinearLayout evento;
         public MyViewHolder(View itemView) {
             super(itemView);
 
@@ -55,6 +65,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             title = itemView.findViewById(R.id.textTitle);
             date = itemView.findViewById(R.id.tx_dt);
             extra = itemView.findViewById(R.id.tx_extra);
+            evento = itemView.findViewById(R.id.event_ll);
         }
     }
 }

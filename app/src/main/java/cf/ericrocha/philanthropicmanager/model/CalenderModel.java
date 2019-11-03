@@ -7,15 +7,27 @@ public class CalenderModel {
     public String extra;
     public Date date;
     public String desc;
+    public Integer cor;
+
+
 
     public CalenderModel(){
     }
 
-    public CalenderModel(String title, String extra, Date date, String desc ) {
+    public CalenderModel(String title, String extra, Date date, String desc, Integer cor ) {
         this.title = title;
         this.extra = extra;
         this.date = date;
         this.desc = desc;
+        this.cor = cor;
+    }
+
+    public Integer getCor() {
+        return cor;
+    }
+
+    public void setCor(Integer cor) {
+        this.cor = cor;
     }
 
     public String getDesc() {

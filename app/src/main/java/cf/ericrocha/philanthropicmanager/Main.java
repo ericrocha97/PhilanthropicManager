@@ -22,16 +22,16 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = new DBHelper(this);
-       // Session = new session(this);
+        Session = Session.getInstance();
         le = db.getReadableDatabase();
         wellcome = findViewById(R.id.tx_welcome);
         Intent it = getIntent();
 
         //Recuperei a string da outra activity
-        String nomeuser = it.getStringExtra("Username");
+        //String nomeuser = it.getStringExtra("Username");
 
         String concat = getString(R.string.tx_welcome);
-        //String nomeuser = Session.getUsername();
+        String nomeuser = Session.getUsername();
         String tx = concat +" "+ nomeuser;
         wellcome.setText(tx);
 
@@ -71,6 +71,7 @@ public class Main extends AppCompatActivity {
 
     public void exit(View view){
         startActivity(new Intent(this, Login.class));
+        Session.destroy();
         finishAffinity();
     }
 

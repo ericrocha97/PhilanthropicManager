@@ -27,7 +27,7 @@ public class Login extends AppCompatActivity {
         username = findViewById(R.id.edt_login);
         password = findViewById(R.id.edt_password);
         db = new DBHelper(this);
-        Session = new session();
+        Session = Session.getInstance();
     }
 
 
@@ -42,6 +42,7 @@ public class Login extends AppCompatActivity {
             Session.setUsername(db.nameUser(user,pwd));
             Intent intent = new Intent(this, Main.class);
             intent.putExtra("Username", Session.getUsername());
+           // intent.putExtra("class", );
             startActivity(intent);
         }
         else

@@ -36,6 +36,7 @@
     <string name="doc_type_tx">Document Type</string>
     <string name="doc_name_hit">Select a file or open camera</string>
     <string name="cam_image_text">Image of selected camera</string>
+    <string name="doc_image_text">Selected Document</string>
     <string name="title_activity_settings_test">Settings</string>
 
     <!-- Preference Titles -->
@@ -73,7 +74,6 @@
     <string name="registrar">Registrar</string>
     <string name="president_works">Working president</string>
     <string name="app_name">Philanthropic Manager</string>
-
 
 
 </resources>

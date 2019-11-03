@@ -50,18 +50,21 @@ public class DBHelper extends SQLiteOpenHelper {
                 " titulo_trabalho TEXT NOT NULL, " +
                 " desc_trabalho TEXT NOT NULL, " +
                 " nome_membro TEXT NOT NULL, " +
-                " dt_trab DATE NOT NULL); ";
+                " dt_trab DATE NOT NULL, " +
+                " cor_trab INTEGER DEFAULT 0); ";
 
         String sql_filantropia = "CREATE TABLE IF NOT EXISTS " + TAB_filantropia
                 + " (cod_filantropia INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 " titulo_filantropia TEXT NOT NULL, " +
                 " local_filantropia TEXT NOT NULL, " +
                 " desc_filantropia TEXT NOT NULL, " +
-                " dt_filantropia DATE NOT NULL); ";
+                " dt_filantropia DATE NOT NULL, " +
+                " cor_fila INTEGER DEFAULT 1); ";
 
         String sql_documentos = "CREATE TABLE IF NOT EXISTS " + TAB_documentos
                 + " (cod_doc INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 " sumula TEXT NOT NULL, " +
+                " desc_doc TEXT NOT NULL, " +
                 " file BLOB NOT NULL, " +
                 " cod_doc_tipo INTEGER NOT NULL, " +
                 " FOREIGN KEY(cod_doc_tipo) REFERENCES doc_tipo(cod_doc_tipo)); ";
@@ -112,6 +115,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 "membro) " +
                 "VALUES( 1," + "'admin'," + "'admin123'," + "1);";
 
+        String sql_insert_doc_tipos = "INSERT INTO " + TAB_doc_tipo + "(cod_doc_tipo," +
+                "nome_tipo) " +
+                "VALUES ( 1, 'Atas')," +
+                "       (2, 'Protocolo');";
+
 
         try {
             db.execSQL( sql_membros );
@@ -124,6 +132,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL( sql_documentos );
             db.execSQL( sql_insert_membro );
             db.execSQL( sql_insert_user );
+            db.execSQL( sql_insert_doc_tipos );
             //addAdmin();
 
 
@@ -226,15 +235,43 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert ("filantropia",null,cv);
     }
 
+    /*public void addDoc(String desc_doc, String sumula, Bitmap file, INTEGER cod_doc_tipo){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("desc_doc",desc_doc);
+        cv.put("sumula",sumula);
+        cv.put("file", file);
+        cv.put("cod_doc_tipo", cod_doc_tipo);
+        db.insert ("usuarios",null,cv);
+    }*/
+
     public List<CalenderModel> listevents(){
         SQLiteDatabase db = getReadableDatabase();
-        String sql_consuta = "SELECT filantropia.titulo_filantropia, filantropia.local_filantropia, filantropia.desc_filantropia, filantropia.dt_filantropia FROM filantropia ORDER BY filantropia.dt_filantropia ASC;";
+        //String sql_consuta = "SELECT filantropia.titulo_filantropia, filantropia.local_filantropia, filantropia.desc_filantropia, filantropia.dt_filantropia FROM filantropia ORDER BY filantropia.dt_filantropia ASC;";
+        String sql_consuta = "SELECT " +
+                "trabalhos.titulo_trabalho AS TITULO, " +
+                "trabalhos.nome_membro AS EXTRA, " +
+                "trabalhos.desc_trabalho AS DESCRICAO, " +
+                "trabalhos.dt_trab AS DATA_EVENTO," +
+                "trabalhos.cor_trab AS COR  " +
+                "FROM trabalhos " +
+               // "ORDER BY DATA_EVENTO ASC" +
+                "UNION ALL " +
+                "SELECT " +
+                "filantropia.titulo_filantropia AS TITULO, " +
+                "filantropia.local_filantropia AS EXTRA, " +
+                "filantropia.desc_filantropia AS DESCRICAO, " +
+                "filantropia.dt_filantropia AS DATA_EVENTO, " +
+                "filantropia.cor_fila AS COR " +
+                "FROM filantropia " +
+                "ORDER BY DATA_EVENTO ASC;";
         Cursor cursor =  db.rawQuery(sql_consuta,null);
         cursor.moveToFirst();
         String TITULO = cursor.getString(0);
         String EXTRA = cursor.getString(1);
         String DESCRICAO = cursor.getString(2);
         String DATA_EVENTO = cursor.getString(3);
+        Integer COR = cursor.getInt(4);
         String myFormat = "dd/MM/yyyy";
         DateFormat formataData = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
         Date dta = null;
@@ -243,7 +280,7 @@ public class DBHelper extends SQLiteOpenHelper {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        CalenderModel calenderModel = new CalenderModel(TITULO,EXTRA,dta,DESCRICAO);
+        CalenderModel calenderModel = new CalenderModel(TITULO,EXTRA,dta,DESCRICAO,COR);
         listCalenderModel.add(calenderModel);
 
         while(cursor.moveToNext())
@@ -252,55 +289,41 @@ public class DBHelper extends SQLiteOpenHelper {
              EXTRA = cursor.getString(1);
              DESCRICAO = cursor.getString(2);
              DATA_EVENTO = cursor.getString(3);
+             COR = cursor.getInt(4);
              dta = null;
             try {
                 dta = formataData.parse(DATA_EVENTO);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-             calenderModel = new CalenderModel(TITULO,EXTRA,dta,DESCRICAO);
+             calenderModel = new CalenderModel(TITULO,EXTRA,dta,DESCRICAO,COR);
             listCalenderModel.add(calenderModel);
         }
 
         cursor.close();
-
-        sql_consuta = "SELECT trabalhos.titulo_trabalho, trabalhos.nome_membro, trabalhos.desc_trabalho, trabalhos.dt_trab FROM trabalhos ORDER BY trabalhos.dt_trab ASC;";
-        cursor =  db.rawQuery(sql_consuta,null);
-        cursor.moveToFirst();
-
-        TITULO = cursor.getString(0);
-        EXTRA = cursor.getString(1);
-        DESCRICAO = cursor.getString(2);
-        DATA_EVENTO = cursor.getString(3);
-        dta = null;
-        try {
-            dta = formataData.parse(DATA_EVENTO);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        calenderModel = new CalenderModel(TITULO,EXTRA,dta,DESCRICAO);
-        listCalenderModel.add(calenderModel);
-
-        while(cursor.moveToNext())
-        {
-            TITULO = cursor.getString(0);
-            EXTRA = cursor.getString(1);
-            DESCRICAO = cursor.getString(2);
-            DATA_EVENTO = cursor.getString(3);
-            dta = null;
-            try {
-                dta = formataData.parse(DATA_EVENTO);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            calenderModel = new CalenderModel(TITULO,EXTRA,dta,DESCRICAO);
-            listCalenderModel.add(calenderModel);
-        }
-        cursor.close();
-        //Collections.sort(listCalenderModel, Comparator.comparing(calenderModel::getDate));
-        //listCalenderModel.sort(calenderModel.date);
-        //listCalenderModel.sort(Comparator.comparing(calenderModel.date));
         return listCalenderModel;
     }
 
+    public List<String> getAllDocTypes(){
+        List<String> list = new ArrayList<String>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TAB_doc_tipo;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);//selectQuery,selectedArguments
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursor.getString(1));//adding 2nd column data
+            } while (cursor.moveToNext());
+        }
+        // closing connection
+        cursor.close();
+        db.close();
+        // returning lables
+        return list;
+    }
 }
+

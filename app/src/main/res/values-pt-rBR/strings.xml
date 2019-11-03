@@ -61,4 +61,6 @@
     <string name="work_description">Descrição do Trabalho</string>
     <string name="work_member">Membro que fará o trabalho</string>
     <string name="work_title">Título do trabalho</string>
+    <string name="doc_image_text">Documento selecionado</string>
+
 </resources>

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/event_ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:orientation="vertical">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,18 +25,25 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tx_dt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Data"
-        android:textAlignment="textEnd"
-        app:lineHeight="5dp" />
-
-    <TextView
-        android:id="@+id/tx_extra"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Local ou membro" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tx_extra"
+            android:layout_width="188dp"
+            android:layout_height="wrap_content"
+            android:text="Local ou membro" />
+
+        <TextView
+            android:id="@+id/tx_dt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data"
+            android:textAlignment="textEnd" />
+
+    </LinearLayout>
+
+
 </LinearLayout>

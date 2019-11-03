@@ -8,4 +8,6 @@
     <color name="colorSecondaryLight">#484848</color>
     <color name="colorAccent">#FF5131</color>
     <color name="colorText">#FFFFFF</color>
+    <color name="colorPhilanthropic">#FF5131</color>
+    <color name="colorWork">#3949ab</color>
 </resources>
