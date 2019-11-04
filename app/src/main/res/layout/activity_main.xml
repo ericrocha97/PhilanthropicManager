@@ -92,20 +92,6 @@
             app:layout_constraintTop_toBottomOf="@+id/btn_works" />
 
         <Button
-            android:id="@+id/btn_documents"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="64dp"
-            android:onClick="documents"
-            android:padding="20dp"
-            android:text="@string/btn_documents"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_philanthropies" />
-
-        <Button
             android:id="@+id/btn_settings"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -117,7 +103,7 @@
             android:text="@string/btn_settings"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_documents" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_philanthropies" />
 
         <Button
             android:id="@+id/btn_exit"
@@ -126,11 +112,9 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="64dp"
-            android:layout_marginBottom="32dp"
             android:onClick="exit"
             android:padding="20dp"
             android:text="@string/btn_logout"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_settings" />

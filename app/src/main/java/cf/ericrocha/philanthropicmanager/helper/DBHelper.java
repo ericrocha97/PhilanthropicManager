@@ -235,6 +235,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert ("filantropia",null,cv);
     }
 
+
+
     /*public void addDoc(String desc_doc, String sumula, Bitmap file, INTEGER cod_doc_tipo){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -249,6 +251,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         //String sql_consuta = "SELECT filantropia.titulo_filantropia, filantropia.local_filantropia, filantropia.desc_filantropia, filantropia.dt_filantropia FROM filantropia ORDER BY filantropia.dt_filantropia ASC;";
         String sql_consuta = "SELECT " +
+                "trabalhos.cod_trabalho AS ID, " +
                 "trabalhos.titulo_trabalho AS TITULO, " +
                 "trabalhos.nome_membro AS EXTRA, " +
                 "trabalhos.desc_trabalho AS DESCRICAO, " +
@@ -258,6 +261,7 @@ public class DBHelper extends SQLiteOpenHelper {
                // "ORDER BY DATA_EVENTO ASC" +
                 "UNION ALL " +
                 "SELECT " +
+                "filantropia.cod_filantropia AS ID, " +
                 "filantropia.titulo_filantropia AS TITULO, " +
                 "filantropia.local_filantropia AS EXTRA, " +
                 "filantropia.desc_filantropia AS DESCRICAO, " +
@@ -266,43 +270,58 @@ public class DBHelper extends SQLiteOpenHelper {
                 "FROM filantropia " +
                 "ORDER BY DATA_EVENTO ASC;";
         Cursor cursor =  db.rawQuery(sql_consuta,null);
-        cursor.moveToFirst();
-        String TITULO = cursor.getString(0);
-        String EXTRA = cursor.getString(1);
-        String DESCRICAO = cursor.getString(2);
-        String DATA_EVENTO = cursor.getString(3);
-        Integer COR = cursor.getInt(4);
-        String myFormat = "dd/MM/yyyy";
-        DateFormat formataData = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
-        Date dta = null;
-        try {
-            dta = formataData.parse(DATA_EVENTO);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        CalenderModel calenderModel = new CalenderModel(TITULO,EXTRA,dta,DESCRICAO,COR);
-        listCalenderModel.add(calenderModel);
+        if(cursor != null) {
+            cursor.moveToFirst();
+            if (cursor.getCount() != 0) {
+                Integer ID = cursor.getInt(0);
+                String TITULO = cursor.getString(1);
+                String EXTRA = cursor.getString(2);
+                String DESCRICAO = cursor.getString(3);
+                String DATA_EVENTO = cursor.getString(4);
+                Integer COR = cursor.getInt(5);
+                String myFormat = "dd/MM/yyyy";
+                DateFormat formataData = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
+                Date dta = null;
+                try {
+                    dta = formataData.parse(DATA_EVENTO);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                CalenderModel calenderModel = new CalenderModel(ID, TITULO, EXTRA, dta, DESCRICAO, COR);
+                listCalenderModel.add(calenderModel);
 
-        while(cursor.moveToNext())
-        {
-             TITULO = cursor.getString(0);
-             EXTRA = cursor.getString(1);
-             DESCRICAO = cursor.getString(2);
-             DATA_EVENTO = cursor.getString(3);
-             COR = cursor.getInt(4);
-             dta = null;
-            try {
-                dta = formataData.parse(DATA_EVENTO);
-            } catch (ParseException e) {
-                e.printStackTrace();
+                while (cursor.moveToNext()) {
+                    ID = cursor.getInt(0);
+                    TITULO = cursor.getString(1);
+                    EXTRA = cursor.getString(2);
+                    DESCRICAO = cursor.getString(3);
+                    DATA_EVENTO = cursor.getString(4);
+                    COR = cursor.getInt(5);
+                    dta = null;
+                    try {
+                        dta = formataData.parse(DATA_EVENTO);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    calenderModel = new CalenderModel(ID, TITULO, EXTRA, dta, DESCRICAO, COR);
+                    listCalenderModel.add(calenderModel);
+                }
+
+                cursor.close();
             }
-             calenderModel = new CalenderModel(TITULO,EXTRA,dta,DESCRICAO,COR);
-            listCalenderModel.add(calenderModel);
         }
 
-        cursor.close();
         return listCalenderModel;
     }
+    public void deleteWork(Integer ID){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("trabalhos","cod_trabalho = "+ ID,null);
+    }
+    public void deletePhilanthropies(Integer ID){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("filantropia","cod_filantropia = "+ ID,null);
+    }
+
 
     public List<String> getAllDocTypes(){
         List<String> list = new ArrayList<String>();

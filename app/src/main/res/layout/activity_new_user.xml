@@ -151,6 +151,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tx_level" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user_pwd_l"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/level"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/user_pwd_ed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/user_pwd"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
         <Button
             android:id="@+id/btn_user_confirm"
             android:layout_width="wrap_content"
@@ -159,7 +179,7 @@
             android:layout_marginTop="80dp"
             android:text="@string/btn_confirm"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/level" />
+            app:layout_constraintTop_toBottomOf="@+id/user_pwd_l" />
 
         <Button
             android:id="@+id/btn_user_cancel"
@@ -169,7 +189,7 @@
             android:layout_marginEnd="25dp"
             android:text="@string/btn_cancel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/level" />
+            app:layout_constraintTop_toBottomOf="@+id/user_pwd_l" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

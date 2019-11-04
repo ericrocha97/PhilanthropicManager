@@ -8,18 +8,28 @@ public class CalenderModel {
     public Date date;
     public String desc;
     public Integer cor;
+    public Integer id;
 
 
 
     public CalenderModel(){
     }
 
-    public CalenderModel(String title, String extra, Date date, String desc, Integer cor ) {
+    public CalenderModel(Integer id , String title, String extra, Date date, String desc, Integer cor ) {
+        this.id = id;
         this.title = title;
         this.extra = extra;
         this.date = date;
         this.desc = desc;
         this.cor = cor;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getCor() {
