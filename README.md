@@ -1,5 +1,5 @@
 # PhilanthropicManager
- Applicativo para gestao filantrópica
+ Aplicativo para gestao filantrópica
  
 ## TODO:
 
