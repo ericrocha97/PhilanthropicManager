@@ -19,7 +19,7 @@ public class Settings extends AppCompatActivity {
     }
 
     public void user_register(View view){
-        Intent intent = new Intent(this, new_user.class);
+        Intent intent = new Intent(this, members.class);
         startActivity(intent);
     }
 

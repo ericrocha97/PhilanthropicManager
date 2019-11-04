@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -69,7 +70,9 @@ public class Calendar extends AppCompatActivity {
 
                                 public void onItemClick(View view, int position) {
                                     CalenderModel calenderModel = listCalenderModel.get( position );
-                                    builder.setPositiveButton("Deletar", new DialogInterface.OnClickListener() {
+
+
+                                    builder.setNegativeButton("Deletar", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             if(calenderModel.getCor().equals(0)){
                                                 db.deleteWork(calenderModel.getId());
@@ -91,8 +94,35 @@ public class Calendar extends AppCompatActivity {
                                         }
                                     });
 
-                                    builder.setNeutralButton("OK",new DialogInterface.OnClickListener() {
+
+                                    builder.setNeutralButton("Editar",new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
+                                            if(calenderModel.getCor().equals(0)){
+                                                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                                                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
+                                                Intent intent = new Intent(getApplicationContext(), works.class);
+                                                Integer ID = calenderModel.getId();
+                                                intent.putExtra("ID", ID);
+                                                intent.putExtra("TITULO", calenderModel.getTitle() );
+                                                intent.putExtra("DESC", calenderModel.getDesc());
+                                                intent.putExtra("EXTRA",calenderModel.getExtra() );
+                                                intent.putExtra("DATA", sdf.format(calenderModel.getDate()));
+                                                startActivity(intent);
+
+                                            }else{
+                                                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                                                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
+                                                Intent intent = new Intent(getApplicationContext(), philanthropies.class);
+                                                Integer ID = calenderModel.getId();
+                                                intent.putExtra("ID", ID);
+                                                intent.putExtra("TITULO", calenderModel.getTitle() );
+                                                intent.putExtra("DESC", calenderModel.getDesc());
+                                                intent.putExtra("EXTRA",calenderModel.getExtra() );
+                                                intent.putExtra("DATA", sdf.format(calenderModel.getDate()));
+                                                startActivity(intent);
+
+                                            }
+
 
                                         }
                                     });
@@ -109,21 +139,42 @@ public class Calendar extends AppCompatActivity {
                                     String myFormat = "dd/MM/yyyy"; //In which you need put here
                                     SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
 
+                                    Date today = new Date();
+                                    if(calenderModel.getDate().before(today)){
+                                        if(calenderModel.getCor().equals(0)){
+                                            titulo = "Trabalho";
+                                            mensagem = "Na data " +  sdf.format(calenderModel.getDate()) +
+                                                    " foi realizado " + calenderModel.getTitle() + " que foi apresentado pelo membro " +
+                                                    calenderModel.getExtra() + "\n" +
+                                                    "Descrição: " + calenderModel.getDesc();
 
-                                    if(calenderModel.getCor().equals(0)){
-                                        titulo = "Trabalho";
-                                        mensagem = "Na data " +  sdf.format(calenderModel.getDate()) +
-                                                " será realizado " + calenderModel.getTitle() + " que será apresentado pelo membro " +
-                                                calenderModel.getExtra() + "\n" +
-                                                "Descrição: " + calenderModel.getDesc();
+                                        }else{
+                                            titulo = "Filantropia";
+                                            mensagem = "Na data " +  sdf.format(calenderModel.getDate()) +
+                                                    " foi realizado " + calenderModel.getTitle() + " que ocorreu em  " +
+                                                    calenderModel.getExtra() + "\n" +
+                                                    "Descrição: " + calenderModel.getDesc();
+                                        }
 
                                     }else{
-                                        titulo = "Filantropia";
-                                        mensagem = "Na data " +  sdf.format(calenderModel.getDate()) +
-                                                " será realizado " + calenderModel.getTitle() + " que ira ocorrer em  " +
-                                                calenderModel.getExtra() + "\n" +
-                                                "Descrição: " + calenderModel.getDesc();
+                                        if(calenderModel.getCor().equals(0)){
+                                            titulo = "Trabalho";
+                                            mensagem = "Na data " +  sdf.format(calenderModel.getDate()) +
+                                                    " será realizado " + calenderModel.getTitle() + " que será apresentado pelo membro " +
+                                                    calenderModel.getExtra() + "\n" +
+                                                    "Descrição: " + calenderModel.getDesc();
+
+                                        }else{
+                                            titulo = "Filantropia";
+                                            mensagem = "Na data " +  sdf.format(calenderModel.getDate()) +
+                                                    " será realizado " + calenderModel.getTitle() + " que ira ocorrer em  " +
+                                                    calenderModel.getExtra() + "\n" +
+                                                    "Descrição: " + calenderModel.getDesc();
+                                        }
                                     }
+
+
+
 
 
 

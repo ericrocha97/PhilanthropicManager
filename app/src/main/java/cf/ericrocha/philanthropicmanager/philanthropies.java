@@ -13,8 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import cf.ericrocha.philanthropicmanager.helper.DBHelper;
@@ -29,6 +31,7 @@ public class philanthropies extends AppCompatActivity {
     EditText ed_desc_phil;
     EditText ed_place_phil;
     TextInputLayout test;
+    Integer ID;
 
     java.util.Calendar myCalendar = java.util.Calendar.getInstance();
 
@@ -61,6 +64,12 @@ public class philanthropies extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_philanthropies);
+        Intent it = getIntent();
+        ID = it.getIntExtra("ID",0);
+        String TITULO = it.getStringExtra("TITULO");
+        String DESC = it.getStringExtra("DESC");
+        String EXTRA = it.getStringExtra("EXTRA");
+        String DATA = it.getStringExtra("DATA");
         db = new DBHelper(this);
         test = findViewById(R.id.philanthropy_date_l);
         test.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +95,12 @@ public class philanthropies extends AppCompatActivity {
         ed_desc_phil = findViewById(R.id.philanthropy_desc_ed);
         ed_place_phil = findViewById(R.id.philanthropy_place_ed);
 
+        if(ID != 0){
+            ed_phil.setText(TITULO);
+            ed_desc_phil.setText(DESC);
+            ed_place_phil.setText(EXTRA);
+            ed_dt_phil.setText(DATA);
+        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -124,13 +139,31 @@ public class philanthropies extends AppCompatActivity {
         String desc = ed_desc_phil.getText().toString().trim();
         String dt = ed_dt_phil.getText().toString().trim();
         String lugar = ed_place_phil.getText().toString().trim();
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        //SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
+        SimpleDateFormat formato = new SimpleDateFormat(myFormat,new Locale("pt","BR"));
+        Date dataFormatada = null;
+        try {
+            dataFormatada = formato.parse(dt);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         if(titulo.equals("") || desc.equals("") || dt.equals("") || lugar.equals("")){
             Toast.makeText(this,"Favor preencher todos os campos!", Toast.LENGTH_SHORT).show();
         }else{
-            db.addPhilanthropies(titulo,lugar, desc,dt);
-            Toast.makeText(this,"Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
-            clear();
+            if(ID != 0){
+                db.addOrEditPhilanthropies(ID,titulo,lugar, desc,dataFormatada);
+                Toast.makeText(this,"Cadastro alterado com sucesso!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.Calendar.class));
+                finishAffinity();
+
+            }else{
+                db.addOrEditPhilanthropies(0,titulo,lugar, desc,dataFormatada);
+                Toast.makeText(this,"Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
+                clear();
+            }
+
         }
 
 

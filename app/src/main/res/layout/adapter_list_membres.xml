@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/event_ll"
+    android:id="@+id/member_ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nome"
+            android:id="@+id/tx_nome"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:lineHeight="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tx_nivel"
+            android:layout_width="188dp"
+            android:layout_height="wrap_content"
+            android:text="Grau" />
+
+        <TextView
+            android:id="@+id/tx_cid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CID"
+            android:textAlignment="textEnd" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,56 +50,11 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tipo"
+            android:id="@+id/Telefone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Tipo evento" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tx_titulo"
-            android:layout_width="262dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Titulo"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:lineHeight="5dp" />
-
-        <TextView
-            android:id="@+id/Situacao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Situacao"
-            android:textAlignment="textEnd" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tx_extra"
-            android:layout_width="188dp"
-            android:layout_height="wrap_content"
-            android:text="Local ou membro" />
-
-        <TextView
-            android:id="@+id/tx_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Data"
-            android:textAlignment="textEnd" />
-
+            android:text="Telefone" />
     </LinearLayout>
 
 

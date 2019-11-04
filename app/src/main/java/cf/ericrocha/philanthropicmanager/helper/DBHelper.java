@@ -13,9 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import cf.ericrocha.philanthropicmanager.model.CalenderModel;
+import cf.ericrocha.philanthropicmanager.model.MembersModel;
 
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -31,6 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static String TAB_membros = "membros";
     public static String TAB_usuarios = "usuarios";
     private List<CalenderModel> listCalenderModel = new ArrayList<>();
+    private List<MembersModel> listMembersModel = new ArrayList<>();
 
     public DBHelper(Context context) {
         super(context, NOME_DB, null, VERSION);
@@ -50,7 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 " titulo_trabalho TEXT NOT NULL, " +
                 " desc_trabalho TEXT NOT NULL, " +
                 " nome_membro TEXT NOT NULL, " +
-                " dt_trab DATE NOT NULL, " +
+                " dt_trab DATETIME NOT NULL, " +
                 " cor_trab INTEGER DEFAULT 0); ";
 
         String sql_filantropia = "CREATE TABLE IF NOT EXISTS " + TAB_filantropia
@@ -58,7 +59,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 " titulo_filantropia TEXT NOT NULL, " +
                 " local_filantropia TEXT NOT NULL, " +
                 " desc_filantropia TEXT NOT NULL, " +
-                " dt_filantropia DATE NOT NULL, " +
+                " dt_filantropia DATETIME NOT NULL, " +
                 " cor_fila INTEGER DEFAULT 1); ";
 
         String sql_documentos = "CREATE TABLE IF NOT EXISTS " + TAB_documentos
@@ -86,6 +87,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 " endereco VARCHAR(255) NOT NULL, " +
                 " CEP VARCHAR(9) NOT NULL, " +
                 " telefone VARCHAR(15) NOT NULL, " +
+                " dt_nascimento DATE NOT NULL, " +
                 " nivel INT(3)); ";
 
         String sql_usuarios = "CREATE TABLE IF NOT EXISTS " + TAB_usuarios
@@ -101,11 +103,13 @@ public class DBHelper extends SQLiteOpenHelper {
                 "endereco," +
                 "CEP," +
                 "telefone," +
+                "dt_nascimento," +
                 "nivel) " +
                 "VALUES( 1," + "'Admin'," + "'0000'," +
                 "'nao tem'," +
                 "'nao tem'," +
                 "'nao tem'," +
+                "'1900/01/01'," +
                 "1);";
 
 
@@ -214,25 +218,70 @@ public class DBHelper extends SQLiteOpenHelper {
             return  false;
     }
 
-    public void addWork(String titulo_trabalho, String desc_trabalho, String nome_membro, String dt_trab){
+    public void addOrEditWork(Integer ID ,String titulo_trabalho, String desc_trabalho, String nome_membro, Date dt){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("titulo_trabalho",titulo_trabalho);
-        cv.put("desc_trabalho", desc_trabalho);
-        cv.put("nome_membro", nome_membro);
-        cv.put("dt_trab",dt_trab);
-        db.insert ("trabalhos",null,cv);
+        String myFormat = "yyyy/MM/dd"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        String dt_trab = (sdf.format(dt.getTime()));
+        if(ID == 0){
+            //insert
+            String sql = "INSERT INTO trabalhos (titulo_trabalho,desc_trabalho,nome_membro,dt_trab)" +
+                    "VALUES('"+titulo_trabalho+"','"+desc_trabalho+"','"+nome_membro+"','"+dt_trab+"')";
+            db.execSQL(sql);
+        }else{
+            //edit
+            String sql = "UPDATE trabalhos SET " +
+                    "titulo_trabalho = '"+titulo_trabalho+"'," +
+                    "desc_trabalho = '"+desc_trabalho+"'," +
+                    "nome_membro = '"+nome_membro+"'," +
+                    "dt_trab = '"+dt_trab+"'" +
+                    " WHERE " +
+                    "cod_trabalho = "+ ID;
+            db.execSQL(sql);
+
+        }
+
+
+
+
     }
 
 
-    public void addPhilanthropies(String titulo_filantropia, String local_filantropia, String desc_filantropia, String dt_filantropia){
+    public void addOrEditPhilanthropies(Integer ID, String titulo_filantropia, String local_filantropia, String desc_filantropia, Date dt){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("titulo_filantropia",titulo_filantropia);
-        cv.put("local_filantropia", local_filantropia);
-        cv.put("desc_filantropia", desc_filantropia);
-        cv.put("dt_filantropia",dt_filantropia);
-        db.insert ("filantropia",null,cv);
+        String myFormat = "yyyy/MM/dd"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        String dt_fila = (sdf.format(dt.getTime()));
+        if(ID == 0){
+            //insert
+            /*cv.put("titulo_filantropia",titulo_filantropia);
+            cv.put("local_filantropia", local_filantropia);
+            cv.put("desc_filantropia", desc_filantropia);
+            //cv.put("dt_filantropia",dt_filantropia);
+            db.insert ("filantropia",null,cv);*/
+
+            String sql = "INSERT INTO filantropia (titulo_filantropia,local_filantropia,desc_filantropia,dt_filantropia)" +
+                    "VALUES('"+titulo_filantropia+"','"+local_filantropia+"','"+desc_filantropia+"','"+dt_fila+"')";
+            db.execSQL(sql);
+        }else{
+            //edit
+            /*cv.put("cod_filantropia",ID);
+            cv.put("titulo_filantropia",titulo_filantropia);
+            cv.put("local_filantropia", local_filantropia);
+            cv.put("desc_filantropia", desc_filantropia);
+            //cv.put("dt_filantropia",dt_filantropia);
+            db.update ("filantropia",cv,"cod_filantropia = "+ ID,null);*/
+            String sql = "UPDATE filantropia SET " +
+                    "titulo_filantropia = '"+titulo_filantropia+"'," +
+                    "local_filantropia = '"+local_filantropia+"'," +
+                    "desc_filantropia = '"+desc_filantropia+"'," +
+                    "dt_filantropia = '"+dt_fila+"'" +
+                    " WHERE " +
+                    "cod_filantropia = "+ ID;
+            db.execSQL(sql);
+        }
     }
 
 
@@ -279,15 +328,27 @@ public class DBHelper extends SQLiteOpenHelper {
                 String DESCRICAO = cursor.getString(3);
                 String DATA_EVENTO = cursor.getString(4);
                 Integer COR = cursor.getInt(5);
-                String myFormat = "dd/MM/yyyy";
-                DateFormat formataData = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
-                Date dta = null;
+                /*String myFormat = "dd/MM/yyyy";
+                DateFormat formataData = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));*/
+                DateFormat formatUS = new SimpleDateFormat("yyyy/MM/dd");
+                Date date = null;
+                try {
+                    date = formatUS.parse(DATA_EVENTO);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                //Depois formata data
+                DateFormat formatBR = new SimpleDateFormat("dd/mm/yyyy");
+                String dateFormated = formatBR.format(date);
+
+                /*Date dta = null;
                 try {
                     dta = formataData.parse(DATA_EVENTO);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                }
-                CalenderModel calenderModel = new CalenderModel(ID, TITULO, EXTRA, dta, DESCRICAO, COR);
+                }*/
+                CalenderModel calenderModel = new CalenderModel(ID, TITULO, EXTRA, date, DESCRICAO, COR);
                 listCalenderModel.add(calenderModel);
 
                 while (cursor.moveToNext()) {
@@ -297,13 +358,19 @@ public class DBHelper extends SQLiteOpenHelper {
                     DESCRICAO = cursor.getString(3);
                     DATA_EVENTO = cursor.getString(4);
                     COR = cursor.getInt(5);
-                    dta = null;
+                    date = null;
+                    try {
+                        date = formatUS.parse(DATA_EVENTO);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    /*dta = null;
                     try {
                         dta = formataData.parse(DATA_EVENTO);
                     } catch (ParseException e) {
                         e.printStackTrace();
-                    }
-                    calenderModel = new CalenderModel(ID, TITULO, EXTRA, dta, DESCRICAO, COR);
+                    }*/
+                    calenderModel = new CalenderModel(ID, TITULO, EXTRA, date, DESCRICAO, COR);
                     listCalenderModel.add(calenderModel);
                 }
 
@@ -344,5 +411,133 @@ public class DBHelper extends SQLiteOpenHelper {
         // returning lables
         return list;
     }
+
+
+    public List<MembersModel> listMembers(){
+        SQLiteDatabase db = getReadableDatabase();
+        String sql_consuta = "SELECT * FROM membros WHERE cod_membro != 1 ;";
+
+        Cursor cursor =  db.rawQuery(sql_consuta,null);
+        if(cursor != null) {
+            cursor.moveToFirst();
+            if (cursor.getCount() != 0) {
+                Integer ID = cursor.getInt(0);
+                String NOME = cursor.getString(1);
+                String CID = cursor.getString(2);
+                String ENDERECO = cursor.getString(3);
+                String CEP = cursor.getString(4);
+                String TELEFONE = cursor.getString(5);
+                String DATE_NASCIMENTO = cursor.getString(5);
+                Integer NIVEL = cursor.getInt(7);
+                DateFormat formatUS = new SimpleDateFormat("yyyy/MM/dd");
+                Date date = null;
+                try {
+                    date = formatUS.parse(DATE_NASCIMENTO);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+                MembersModel membersModel = new MembersModel(ID,NOME,CID,date,ENDERECO,CEP,TELEFONE,NIVEL);
+                listMembersModel.add(membersModel);
+
+                while (cursor.moveToNext()) {
+                    ID = cursor.getInt(0);
+                    NOME = cursor.getString(1);
+                    CID = cursor.getString(2);
+                    ENDERECO = cursor.getString(3);
+                    CEP = cursor.getString(4);
+                    TELEFONE = cursor.getString(5);
+                    DATE_NASCIMENTO = cursor.getString(5);
+                    NIVEL = cursor.getInt(7);
+                    date = null;
+                    try {
+                        date = formatUS.parse(DATE_NASCIMENTO);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    membersModel = new MembersModel(ID,NOME,CID,date,ENDERECO,CEP,TELEFONE,NIVEL);
+                    listMembersModel.add(membersModel);
+                }
+
+                cursor.close();
+            }
+        }
+
+        return listMembersModel;
+    }
+    public void addOrEditMember(Integer ID, String nome_membro, String cid_membro, String endereco, String CEP, String telefone, Date dt, Integer nivel, String pwd){
+        SQLiteDatabase escreve = getWritableDatabase();
+        SQLiteDatabase le = getReadableDatabase();
+        ContentValues cv = new ContentValues();
+        String myFormat = "yyyy/MM/dd"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        String dt_nascimento = (sdf.format(dt.getTime()));
+        /*
+        *
+        * tring sql_membros = "CREATE TABLE IF NOT EXISTS " + TAB_membros
+                + " (cod_membro INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                " nome_membro VARCHAR(255) NOT NULL, " +
+                " cid_membro VARCHAR(20) NOT NULL, " +
+                " endereco VARCHAR(255) NOT NULL, " +
+                " CEP VARCHAR(9) NOT NULL, " +
+                " telefone VARCHAR(15) NOT NULL, " +
+                " dt_nascimento DATE NOT NULL, " +
+                " nivel INT(3)); ";
+        *
+        * */
+        if(ID == 0){
+            //insert
+
+            /*String sql = "INSERT INTO filantropia (titulo_filantropia,local_filantropia,desc_filantropia,dt_filantropia)" +
+                    "VALUES('"+titulo_filantropia+"','"+local_filantropia+"','"+desc_filantropia+"','"+dt_fila+"')";
+            db.execSQL(sql);*/
+            String sql_insert_membro = "INSERT INTO " + TAB_membros + "(" +
+                    "nome_membro," +
+                    "cid_membro," +
+                    "endereco," +
+                    "CEP," +
+                    "telefone," +
+                    "dt_nascimento," +
+                    "nivel) " +
+                    "VALUES( '"+nome_membro+"'," +
+                    "'"+cid_membro+"'," +
+                    "'"+endereco+"'," +
+                    "'"+CEP+"'," +
+                    "'"+telefone+"'," +
+                    "'"+dt_nascimento+"'," +
+                    ""+nivel+");";
+            escreve.execSQL(sql_insert_membro);
+            String sql_consuta = "SELECT cod_membro FROM membros WHERE cid_membro == "+cid_membro+" ;";
+            Cursor cursor = le.rawQuery(sql_consuta,null);
+            Integer cod_membro = 0;
+            if(cursor != null) {
+                cursor.moveToFirst();
+                if (cursor.getCount() != 0) {
+                    cod_membro = cursor.getInt(0);
+                }
+            }
+
+            String sql_insert_user = "INSERT INTO " + TAB_usuarios + "(" +
+                    "username," +
+                    "password," +
+                    "membro) " +
+                    "VALUES('"+cid_membro+"'," + "'"+pwd+"'," + ""+cod_membro+");";
+            escreve.execSQL(sql_insert_user);
+        }else{
+            //edit
+            String teste = "teste";
+            /*String sql = "UPDATE filantropia SET " +
+                    "titulo_filantropia = '"+titulo_filantropia+"'," +
+                    "local_filantropia = '"+local_filantropia+"'," +
+                    "desc_filantropia = '"+desc_filantropia+"'," +
+                    "dt_filantropia = '"+dt_fila+"'" +
+                    " WHERE " +
+                    "cod_filantropia = "+ ID;
+            db.execSQL(sql);*/
+        }
+    }
+
 }
 

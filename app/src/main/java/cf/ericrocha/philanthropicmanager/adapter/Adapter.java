@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,14 +37,27 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         holder.title.setText( calenderModel.getTitle() );
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
-
+        String dt = sdf.format(calenderModel.getDate());
         holder.date.setText( sdf.format(calenderModel.getDate()));
-        holder.extra.setText( calenderModel.getExtra() );
+
+        holder.situacao.setText("Pendente");
         if(calenderModel.getCor().equals(0)){
             holder.evento.setBackgroundResource(R.color.colorWork);
+            holder.tipo.setText("Trabalho");
+            holder.extra.setText( "Membro: " + calenderModel.getExtra() );
 
         }else{
             holder.evento.setBackgroundResource(R.color.colorPhilanthropic);
+            holder.tipo.setText("Filantropia");
+            holder.extra.setText( "Local: " + calenderModel.getExtra() );
+
+        }
+        Date today = new Date();
+        if(calenderModel.getDate().before(today)){
+            //holder.evento.setVisibility(View.INVISIBLE);
+            holder.situacao.setText("Concluido");
+            holder.evento.setBackgroundResource(R.color.colorEventPass);
+            //listCalenderModel.remove(position);
 
         }
 
@@ -57,14 +71,18 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         TextView title;
         TextView date;
         TextView extra;
+        TextView tipo;
+        TextView situacao;
         LinearLayout evento;
         public MyViewHolder(View itemView) {
             super(itemView);
 
 
-            title = itemView.findViewById(R.id.textTitle);
-            date = itemView.findViewById(R.id.tx_dt);
+            title = itemView.findViewById(R.id.tx_titulo);
+            date = itemView.findViewById(R.id.tx_date);
             extra = itemView.findViewById(R.id.tx_extra);
+            tipo = itemView.findViewById(R.id.tipo);
+            situacao = itemView.findViewById(R.id.Situacao);
             evento = itemView.findViewById(R.id.event_ll);
         }
     }

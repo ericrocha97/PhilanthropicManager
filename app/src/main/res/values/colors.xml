@@ -10,4 +10,5 @@
     <color name="colorText">#FFFFFF</color>
     <color name="colorPhilanthropic">#FF5131</color>
     <color name="colorWork">#3949ab</color>
+    <color name="colorEventPass">#4caf50</color>
 </resources>
