@@ -9,9 +9,9 @@
 - [x] Calendario
     - [x] Apresentar trabalhos e filantropias
     - [x] Ordenação por data
-    - [ ] Opção de editar os eventos
+    - [X] Opção de editar os eventos
         - [x] Ao editar retorar ao calendario
-        - [ ] Ao cancelar retorar ao calendario
+        - [X] Ao cancelar retorar ao calendario
     - [x] Opção de deletar os eventos
 - [x] Trabalhos
     - [x] Gravar os dados no banco
@@ -28,7 +28,7 @@
     - [ ] Membros
         - [x] Consula de membros
         - [x] Cadastro de membros
-        - [ ] Edição de membros
+        - [X] Edição de membros
         - [ ] <s> Delete de membros </s>
     - [ ] Prarametros do sistema
         - [ ] Ajustar campos para buscar membros cadastrados
