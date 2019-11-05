@@ -25,7 +25,7 @@
     - [ ] Editar lançamentos
     - [ ] Deletar lançamentos
 - [ ] Configurações
-    - [ ] Membros
+    - [x] Membros
         - [x] Consula de membros
         - [x] Cadastro de membros
         - [X] Edição de membros
