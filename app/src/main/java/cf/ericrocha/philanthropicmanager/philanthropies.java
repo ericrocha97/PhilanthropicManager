@@ -111,8 +111,13 @@ public class philanthropies extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(this, Main.class));
-                finishAffinity();
+                if(ID != 0){
+                    startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.Calendar.class));
+                    finishAffinity();
+                }else {
+                    startActivity(new Intent(this, Main.class));
+                    finishAffinity();
+                }
                 break;
             default:break;
         }
@@ -122,8 +127,13 @@ public class philanthropies extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        startActivity(new Intent(this, Main.class));
-        finishAffinity();
+        if(ID != 0){
+            startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.Calendar.class));
+            finishAffinity();
+        }else {
+            startActivity(new Intent(this, Main.class));
+            finishAffinity();
+        }
     }
 
 
@@ -171,7 +181,12 @@ public class philanthropies extends AppCompatActivity {
     }
 
     public void philanthropies_Cancel(View view){
-        Toast.makeText(this,"Cadastro cancelado!", Toast.LENGTH_SHORT).show();
-        clear();
+        if(ID != 0){
+            startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.Calendar.class));
+            finishAffinity();
+        }else {
+            Toast.makeText(this, "Cadastro cancelado!", Toast.LENGTH_SHORT).show();
+            clear();
+        }
     }
 }

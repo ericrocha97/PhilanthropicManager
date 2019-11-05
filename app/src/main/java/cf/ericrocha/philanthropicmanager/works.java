@@ -112,8 +112,13 @@ public class works extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(this, Main.class));
-                finishAffinity();
+                if(ID != 0){
+                    startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.Calendar.class));
+                    finishAffinity();
+                }else {
+                    startActivity(new Intent(this, Main.class));
+                    finishAffinity();
+                }
                 break;
             default:break;
         }
@@ -123,8 +128,13 @@ public class works extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        startActivity(new Intent(this, Main.class));
-        finishAffinity();
+        if(ID != 0){
+            startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.Calendar.class));
+            finishAffinity();
+        }else {
+            startActivity(new Intent(this, Main.class));
+            finishAffinity();
+        }
     }
     public void clear(){
         ed_work.setText("");
@@ -169,7 +179,13 @@ public class works extends AppCompatActivity {
     }
 
     public void work_Cancel(View view){
-        Toast.makeText(this,"Cadastro cancelado!", Toast.LENGTH_SHORT).show();
-        clear();
+        if(ID != 0){
+            startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.Calendar.class));
+            finishAffinity();
+        }else{
+            Toast.makeText(this,"Cadastro cancelado!", Toast.LENGTH_SHORT).show();
+            clear();
+        }
+
     }
 }

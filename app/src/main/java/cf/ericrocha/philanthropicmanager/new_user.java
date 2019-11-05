@@ -34,6 +34,7 @@ public class new_user extends AppCompatActivity {
     EditText ed_telefone;
     Spinner ed_nivel;
     EditText ed_pwd;
+    Integer ID;
 
 
     TextInputLayout test;
@@ -66,6 +67,15 @@ public class new_user extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
+        Intent it = getIntent();
+        ID = it.getIntExtra("ID",0);
+        String NOME = it.getStringExtra("nome_membro");
+        String CID = it.getStringExtra("cid_membro");
+        String ENDERECO = it.getStringExtra("endereco");
+        String TELEFONE = it.getStringExtra("telefone");
+        String CEP = it.getStringExtra("CEP");
+        Integer NIVEL = it.getIntExtra("nivel",0);
+        String DATANASCIMENTO = it.getStringExtra("dtnasc");
         db = new DBHelper(this);
         test = findViewById(R.id.user_date_l);
         test.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +102,19 @@ public class new_user extends AppCompatActivity {
         ed_telefone = findViewById(R.id.user_tel_ed);
         ed_nivel = findViewById(R.id.level);
         ed_pwd = findViewById(R.id.user_pwd_ed);
+
+
+        if(ID != 0){
+
+            ed_dt_nasc.setText(DATANASCIMENTO);
+            ed_nome.setText(NOME);
+            ed_cid.setText(CID);
+            ed_endereco.setText(ENDERECO);
+            ed_cep.setText(CEP);
+            ed_telefone.setText(TELEFONE);
+            ed_nivel.setSelection(NIVEL-1);
+
+        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -139,9 +162,20 @@ public class new_user extends AppCompatActivity {
         if(nome.equals("") || cid.equals("") || endereco.equals("") || cep.equals("") || telefone.equals("") || senha.equals("") || dt_nasc.equals("")){
             Toast.makeText(this,"Favor preencher todos os campos!", Toast.LENGTH_SHORT).show();
         }else{
-            db.addOrEditMember(0,nome,cid,endereco,cep,telefone,dataFormatada,nivel,senha);
+            if(ID != 0){
+                db.addOrEditMember(ID,nome,cid,endereco,cep,telefone,dataFormatada,nivel,senha);
+                Toast.makeText(this,"Cadastro alterado com sucesso!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, members.class));
+                finishAffinity();
+
+            }else{
+                db.addOrEditMember(0,nome,cid,endereco,cep,telefone,dataFormatada,nivel,senha);
+                Toast.makeText(this,"Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
+                clear();
+            }
+            /*db.addOrEditMember(0,nome,cid,endereco,cep,telefone,dataFormatada,nivel,senha);
             Toast.makeText(this,"Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
-            clear();
+            clear();*/
         }
 
 
@@ -149,8 +183,14 @@ public class new_user extends AppCompatActivity {
     }
 
     public void Member_Cancel(View view){
-        Toast.makeText(this,"Cadastro cancelado!", Toast.LENGTH_SHORT).show();
-        clear();
+        if(ID !=0){
+            startActivity(new Intent(this, members.class));
+            finishAffinity();
+        }else{
+            Toast.makeText(this,"Cadastro cancelado!", Toast.LENGTH_SHORT).show();
+            clear();
+        }
+
     }
 
     public void clear(){
@@ -161,5 +201,7 @@ public class new_user extends AppCompatActivity {
         ed_telefone.setText("");
         ed_pwd.setText("");
         ed_dt_nasc.setText("");
+        ed_nivel.setSelection(0);
+
     }
 }

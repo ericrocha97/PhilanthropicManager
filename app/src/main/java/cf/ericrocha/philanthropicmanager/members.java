@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +13,13 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
+import cf.ericrocha.philanthropicmanager.activity.RecyclerItemClickListener;
 import cf.ericrocha.philanthropicmanager.adapter.Adapter_members;
 import cf.ericrocha.philanthropicmanager.helper.DBHelper;
 import cf.ericrocha.philanthropicmanager.model.MembersModel;
@@ -51,6 +56,51 @@ public class members extends AppCompatActivity {
             recyclerView.addItemDecoration(new DividerItemDecoration(this,
                     LinearLayout.VERTICAL));
             recyclerView.setAdapter(adapter);
+
+            recyclerView.addOnItemTouchListener(
+                    new RecyclerItemClickListener(
+                            getApplicationContext(),
+
+                            recyclerView,
+                            new RecyclerItemClickListener.OnItemClickListener() {
+
+                                @Override
+                                public void onItemClick(View view, int position) {
+                                    MembersModel membersModel = listMembersModel.get( position );
+                                    String myFormat = "dd/MM/yyyy"; //In which you need put here
+                                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
+                                    Intent intent = new Intent(getApplicationContext(), new_user.class);
+                                    Integer ID = membersModel.getId();
+                                    intent.putExtra("ID", ID);
+                                    intent.putExtra("nome_membro", membersModel.getNome() );
+                                    intent.putExtra("cid_membro", membersModel.getCid() );
+                                    intent.putExtra("endereco", membersModel.getEndereco() );
+                                    intent.putExtra("CEP", membersModel.getCep());
+                                    intent.putExtra("telefone", membersModel.getTelefone() );
+                                    intent.putExtra("nivel", membersModel.getNivel());
+                                    //intent.putExtra("pwd", membersModel.get());
+                                    Date data = membersModel.getDt_nasc();
+                                    intent.putExtra("dtnasc", sdf.format(membersModel.getDt_nasc()));
+                                    //intent.putExtra("DATA", sdf.format(calenderModel.getDate()));
+
+                                    startActivity(intent);
+
+
+                                }
+                                @Override
+                                public void onLongItemClick(View view, int position)
+
+                                {
+
+                                }
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView,
+
+                                                        View view, int i, long l) {
+                                }
+                            }
+                    )
+            );
         }
 
 

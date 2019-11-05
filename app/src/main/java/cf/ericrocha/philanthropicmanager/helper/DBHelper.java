@@ -427,7 +427,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String ENDERECO = cursor.getString(3);
                 String CEP = cursor.getString(4);
                 String TELEFONE = cursor.getString(5);
-                String DATE_NASCIMENTO = cursor.getString(5);
+                String DATE_NASCIMENTO = cursor.getString(6);
                 Integer NIVEL = cursor.getInt(7);
                 DateFormat formatUS = new SimpleDateFormat("yyyy/MM/dd");
                 Date date = null;
@@ -448,7 +448,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     ENDERECO = cursor.getString(3);
                     CEP = cursor.getString(4);
                     TELEFONE = cursor.getString(5);
-                    DATE_NASCIMENTO = cursor.getString(5);
+                    DATE_NASCIMENTO = cursor.getString(6);
                     NIVEL = cursor.getInt(7);
                     date = null;
                     try {
@@ -509,6 +509,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     "'"+dt_nascimento+"'," +
                     ""+nivel+");";
             escreve.execSQL(sql_insert_membro);
+
             String sql_consuta = "SELECT cod_membro FROM membros WHERE cid_membro == "+cid_membro+" ;";
             Cursor cursor = le.rawQuery(sql_consuta,null);
             Integer cod_membro = 0;
@@ -527,15 +528,37 @@ public class DBHelper extends SQLiteOpenHelper {
             escreve.execSQL(sql_insert_user);
         }else{
             //edit
-            String teste = "teste";
-            /*String sql = "UPDATE filantropia SET " +
-                    "titulo_filantropia = '"+titulo_filantropia+"'," +
-                    "local_filantropia = '"+local_filantropia+"'," +
-                    "desc_filantropia = '"+desc_filantropia+"'," +
-                    "dt_filantropia = '"+dt_fila+"'" +
+            String sql_update_member = "UPDATE membros SET " +
+                    "nome_membro = '"+nome_membro+"'," +
+                    "cid_membro = '"+cid_membro+"'," +
+                    "endereco = '"+endereco+"'," +
+                    "CEP = '"+CEP+"'," +
+                    "telefone = '"+telefone+"'," +
+                    "dt_nascimento = '"+dt_nascimento+"'," +
+                    "nivel = '"+nivel+"'" +
                     " WHERE " +
-                    "cod_filantropia = "+ ID;
-            db.execSQL(sql);*/
+                    "cod_membro = "+ ID;
+
+            escreve.execSQL(sql_update_member);
+
+
+            String sql_consuta = "SELECT cod_usuario FROM usuarios WHERE membro == "+ID+" ;";
+            Cursor cursor = le.rawQuery(sql_consuta,null);
+            Integer cod_usuario = 0;
+            if(cursor != null) {
+                cursor.moveToFirst();
+                if (cursor.getCount() != 0) {
+                    cod_usuario = cursor.getInt(0);
+                }
+            }
+            String sql_update_user = "UPDATE usuarios SET " +
+                    "username = '"+cid_membro+"', " +
+                    "password = '"+pwd+"', " +
+                    "membro = "+ID+" " +
+                    " WHERE " +
+                    "cod_usuario = "+ cod_usuario;
+
+            escreve.execSQL(sql_update_user);
         }
     }
 
