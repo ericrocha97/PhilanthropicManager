@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import cf.ericrocha.philanthropicmanager.helper.DBHelper;
@@ -29,6 +32,8 @@ public class works extends AppCompatActivity {
     EditText ed_desc_work;
     EditText ed_member_work;
     Integer ID;
+    Spinner tt;
+    List<String> labels;
 
     TextInputLayout test;
 
@@ -91,12 +96,19 @@ public class works extends AppCompatActivity {
         });
         ed_work = findViewById(R.id.work_title_ed);
         ed_desc_work = findViewById(R.id.work_desc_ed);
-        ed_member_work = findViewById(R.id.work_member_ed);
-
+        //ed_member_work = findViewById(R.id.work_member_ed);
+        tt = findViewById(R.id.teste_t);
+        loadSpinnerData();
         if(ID != 0){
             ed_work.setText(TITULO);
             ed_desc_work.setText(DESC);
-            ed_member_work.setText(EXTRA);
+            Integer tamanho = labels.size();
+            for(Integer i = 0; i < tamanho; i++){
+                if(labels.get(i).equals(EXTRA)){
+                    tt.setSelection(i);
+                }
+            }
+            //ed_member_work.setText(EXTRA);
             ed_dt_work.setText(DATA);
         }
 
@@ -140,14 +152,19 @@ public class works extends AppCompatActivity {
         ed_work.setText("");
         ed_desc_work.setText("");
         ed_dt_work.setText("");
-        ed_member_work.setText("");
+        tt.setSelection(0);
+        //ed_member_work.setText("");
     }
 
     public void work_Confirm(View view){
+
         String titulo = ed_work.getText().toString().trim();
         String desc = ed_desc_work.getText().toString().trim();
         String dt = ed_dt_work.getText().toString().trim();
-        String membro = ed_member_work.getText().toString().trim();
+        //String membro = "TESTE";//ed_member_work.getText().toString().trim();
+        String membro = tt.getSelectedItem().toString();
+        String j = "jj";
+
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         //SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
         SimpleDateFormat formato = new SimpleDateFormat(myFormat,new Locale("pt","BR"));
@@ -157,7 +174,8 @@ public class works extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if(titulo.equals("") || desc.equals("") || dt.equals("") || membro.equals("")){
+        Integer SpinnerSelect = tt.getSelectedItemPosition();
+        if(titulo.equals("") || desc.equals("") || dt.equals("") || membro.equals("") || SpinnerSelect.equals(0)){
             Toast.makeText(this,"Favor preencher todos os campos!", Toast.LENGTH_SHORT).show();
         }else{
             if(ID != 0){
@@ -187,5 +205,20 @@ public class works extends AppCompatActivity {
             clear();
         }
 
+    }
+
+    private void loadSpinnerData() {
+        //DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        labels = db.getAllMembers();
+        labels.add(0,"Selecione um membro");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, labels);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        tt.setAdapter(dataAdapter);
     }
 }
