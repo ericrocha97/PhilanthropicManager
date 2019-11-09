@@ -31,8 +31,8 @@
         - [X] Edição de membros
         - [ ] <s> Delete de membros </s>
     - [ ] Prarametros do sistema
-        - [ ] Ajustar campos para buscar membros cadastrados
-        - [ ] Gravar dados em banco
+        - [X] Ajustar campos para buscar membros cadastrados
+        - [X] Gravar dados em banco
         - [ ] Ao abrir a tela buscar os dados ja gravados em banco
     - [ ] Configurações gerais
          - [ ] Verificar a necessidade do mesmo
