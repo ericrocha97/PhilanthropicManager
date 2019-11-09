@@ -30,6 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static String TAB_financas = "financas";
     public static String TAB_membros = "membros";
     public static String TAB_usuarios = "usuarios";
+    public static String TAB_user_preference = "user_preference";
     private List<CalenderModel> listCalenderModel = new ArrayList<>();
     private List<MembersModel> listMembersModel = new ArrayList<>();
 
@@ -97,6 +98,17 @@ public class DBHelper extends SQLiteOpenHelper {
                 " membro INTEGER, " +
                 " FOREIGN KEY(membro) REFERENCES membros(cod_membro)); ";
 
+        String sql_user_preference = "CREATE TABLE IF NOT EXISTS "+ TAB_user_preference  +
+                " ( Adm TEXT, " +
+                " lider1 TEXT, " +
+                " lider2 TEXT, " +
+                " lider3 TEXT, " +
+                " tesoureiro TEXT, " +
+                " escrivao TEXT, " +
+                " presidente_trab TEXT, " +
+                " presidente_fila TEXT); ";
+
+
         String sql_insert_membro = "INSERT INTO " + TAB_membros + "(cod_membro," +
                 "nome_membro," +
                 "cid_membro," +
@@ -125,6 +137,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 "       (2, 'Protocolo');";
 
 
+
+
         try {
             db.execSQL( sql_membros );
             db.execSQL( sql_usuarios );
@@ -137,6 +151,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL( sql_insert_membro );
             db.execSQL( sql_insert_user );
             db.execSQL( sql_insert_doc_tipos );
+            db.execSQL( sql_user_preference );
             //addAdmin();
 
 
@@ -158,6 +173,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String sql_financas = "DROP TABLE IF EXISTS " + TAB_financas + " ;" ;
         String sql_membros = "DROP TABLE IF EXISTS " + TAB_membros + " ;" ;
         String sql_usuarios = "DROP TABLE IF EXISTS " + TAB_usuarios + " ;" ;
+        String sql_user_preference = "DROP TABLE IF EXISTS " + TAB_user_preference + " ;" ;
 
 
         try {
@@ -169,6 +185,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL( sql_doc_tipo );
             db.execSQL( sql_financas );
             db.execSQL( sql_documentos );
+            db.execSQL( sql_user_preference );
 
             onCreate(db);
             Log.i("INFO DB", "Sucesso ao atualizar App" );
@@ -581,6 +598,76 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         // returning lables
+        return list;
+    }
+
+
+    public void AddOrEditUserPreference(String Adm, String lider1, String lider2, String lider3, String tesoureiro,String escrivao,String presidente_trab, String presidente_fila) {
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = "SELECT adm FROM user_preference";
+        Cursor cursor = db.rawQuery(sql, null);
+        int count = cursor.getCount();
+        cursor.close();
+        //Boolean insert;
+        if (count > 0) {
+            ContentValues cv = new ContentValues();
+            cv.put("Adm",Adm);
+            cv.put("lider1",lider1);
+            cv.put("lider2", lider2);
+            cv.put("lider3", lider3);
+            cv.put("tesoureiro", tesoureiro);
+            cv.put("escrivao", escrivao);
+            cv.put("presidente_trab", presidente_trab);
+            cv.put("presidente_fila", presidente_fila);
+
+            db.update("user_preference",cv,null,null);
+        }else{
+            ContentValues cv = new ContentValues();
+            cv.put("Adm",Adm);
+            cv.put("lider1",lider1);
+            cv.put("lider2", lider2);
+            cv.put("lider3", lider3);
+            cv.put("tesoureiro", tesoureiro);
+            cv.put("escrivao", escrivao);
+            cv.put("presidente_trab", presidente_trab);
+            cv.put("presidente_fila", presidente_fila);
+
+            db.insert("user_preference",null,cv);
+        }
+
+
+
+    }
+
+    public List<String> getUserPreference(){
+        List<String> list = new ArrayList<String>();
+
+        String selectQuery = "SELECT *  FROM user_preference";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);//selectQuery,selectedArguments
+
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursor.getString(0));//adding 2nd column data
+                list.add(cursor.getString(1));//adding 2nd column data
+                list.add(cursor.getString(2));//adding 2nd column data
+                list.add(cursor.getString(3));//adding 2nd column data
+                list.add(cursor.getString(4));//adding 2nd column data
+                list.add(cursor.getString(5));//adding 2nd column data
+                list.add(cursor.getString(6));//adding 2nd column data
+                list.add(cursor.getString(7));//adding 2nd column data
+                //list.add(cursor.getString(8));//adding 2nd column data
+                //list.add(cursor.getString(9));//adding 2nd column data
+
+            } while (cursor.moveToNext());
+        }
+        // closing connection
+        cursor.close();
+        db.close();
+
+
+
         return list;
     }
 

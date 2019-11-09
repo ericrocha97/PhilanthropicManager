@@ -35,144 +35,188 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tx_administration" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/leader_one_l"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tx_leader_one"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:paddingStart="8dp"
+            android:text="@string/leader_one"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/administration" />
+
+        <Spinner
+            android:id="@+id/leader_one_s"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/administration">
+            app:layout_constraintTop_toBottomOf="@+id/tx_leader_one" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/leader_one_ed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/leader_one" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/leader_two_l"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tx_leader_two"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:paddingStart="8dp"
+            android:text="@string/leader_two"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/leader_one_l">
+            app:layout_constraintTop_toBottomOf="@+id/leader_one_s" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/leader_two_ed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/leader_two" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/leader_three_l"
+        <Spinner
+            android:id="@+id/leader_two_s"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_leader_two" />
+
+        <TextView
+            android:id="@+id/tx_leader_three"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:paddingStart="8dp"
+            android:text="@string/leader_three"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/leader_two_l">
+            app:layout_constraintTop_toBottomOf="@+id/leader_two_s" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/leader_three_ed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/leader_three" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/treasurer_l"
+        <Spinner
+            android:id="@+id/leader_three_s"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_leader_three" />
+
+        <TextView
+            android:id="@+id/tx_treasurer"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:paddingStart="8dp"
+            android:text="@string/treasurer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/leader_three_l">
+            app:layout_constraintTop_toBottomOf="@+id/leader_three_s" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/treasurer_ed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/treasurer" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/registrar_l"
+        <Spinner
+            android:id="@+id/treasurer_s"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_treasurer" />
+
+        <TextView
+            android:id="@+id/tx_registrar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:paddingStart="8dp"
+            android:text="@string/registrar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/treasurer_l">
+            app:layout_constraintTop_toBottomOf="@+id/treasurer_s" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/registrar_ed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/registrar" />
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/philanthropy_president_l"
+        <Spinner
+            android:id="@+id/registrar_s"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_registrar" />
+
+        <TextView
+            android:id="@+id/tx_president_works"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:paddingStart="8dp"
+            android:text="@string/president_works"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registrar_l">
+            app:layout_constraintTop_toBottomOf="@+id/registrar_s" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/philanthropy_president_ed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/philanthropy_president" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/president_works_l"
+        <Spinner
+            android:id="@+id/president_works_s"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_president_works" />
+
+        <TextView
+            android:id="@+id/tx_philanthropy_president"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:paddingStart="8dp"
+            android:text="@string/philanthropy_president"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/philanthropy_president_l">
+            app:layout_constraintTop_toBottomOf="@+id/president_works_s" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/president_works_ed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/president_works" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <Spinner
+            android:id="@+id/philanthropy_president_s"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_philanthropy_president" />
 
         <Button
             android:id="@+id/btn_administration_confirm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
-            android:layout_marginTop="80dp"
             android:layout_marginEnd="100dp"
             android:layout_marginBottom="32dp"
+            android:onClick="confirmUserPreference"
             android:text="@string/btn_confirm"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/president_works_l" />
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
