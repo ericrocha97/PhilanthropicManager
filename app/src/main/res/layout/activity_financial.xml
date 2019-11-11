@@ -47,12 +47,12 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:focusable="true"
         app:layout_anchor="@+id/bottomAppBar"
         app:layout_anchorGravity="top|center"
-        app:srcCompat="@drawable/ic_add_black_24dp"
-        android:focusable="true" />
+        app:srcCompat="@drawable/ic_add_black_24dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

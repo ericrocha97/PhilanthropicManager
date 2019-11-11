@@ -18,7 +18,7 @@ public class financial extends AppCompatActivity {
         setContentView(R.layout.activity_financial);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.btn_financial));
+        //getSupportActionBar().setTitle(getString(R.string.btn_financial));
 
         AbasAdapter adapter = new AbasAdapter(getSupportFragmentManager());
         adapter.adicionar( new PrimeiroFragment() , getString(R.string.tab_1));
