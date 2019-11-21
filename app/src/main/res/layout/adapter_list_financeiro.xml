@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/financial_ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#EAF0ED"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -14,14 +14,14 @@
 
         <TextView
             android:id="@+id/tx_viewVlrLancamento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Valor do lançamento" />
+            android:text="Valor do lançamento:" />
 
         <TextView
             android:id="@+id/tx_vlrLancamento"
-            android:layout_width="283dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="R$ valor" />
@@ -34,17 +34,17 @@
 
         <TextView
             android:id="@+id/tx_viewDtLancamento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Data do lançamento" />
 
         <TextView
             android:id="@+id/tx_dtLancamento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Data" />
+            android:text="LOREM LOREM" />
     </LinearLayout>
 
 </LinearLayout>

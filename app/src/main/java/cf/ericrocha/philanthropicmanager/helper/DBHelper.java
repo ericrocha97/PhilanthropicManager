@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 import cf.ericrocha.philanthropicmanager.model.CalenderModel;
+import cf.ericrocha.philanthropicmanager.model.FinancialModel;
 import cf.ericrocha.philanthropicmanager.model.MembersModel;
 
 
@@ -33,6 +34,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static String TAB_user_preference = "user_preference";
     private List<CalenderModel> listCalenderModel = new ArrayList<>();
     private List<MembersModel> listMembersModel = new ArrayList<>();
+    private List<FinancialModel> listFinancialModel = new ArrayList<>();
+
 
     public DBHelper(Context context) {
         super(context, NOME_DB, null, VERSION);
@@ -78,7 +81,8 @@ public class DBHelper extends SQLiteOpenHelper {
         String sql_financas = "CREATE TABLE IF NOT EXISTS " + TAB_financas
                 + " (cod_lancamento INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 " valor FLOAT NOT NULL, " +
-                " tipo_lacamento CHARACTER(1) NOT NULL, " +
+                " tipo_lancamento CHARACTER(1) NOT NULL, " +
+                " desc_lancamento TEXT NOT NULL, " +
                 " dt_lancamento DATE NOT NULL); ";
 
         String sql_membros = "CREATE TABLE IF NOT EXISTS " + TAB_membros
@@ -670,6 +674,130 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return list;
     }
+
+    public List<FinancialModel> listFinanc(){
+        SQLiteDatabase db = getReadableDatabase();
+        //cod_lancamento, valor, tipo_lacamento, dt_lancamento
+        String sql_consuta = "SELECT " +
+                " financas.cod_lancamento AS ID, " +
+                " financas.valor AS VALOR," +
+                " financas.tipo_lancamento AS TIPO_LANC, " +
+                " financas.dt_lancamento AS DATA_LANC, " +
+                " financas.desc_lancamento AS DESC_LANC " +
+                "FROM financas " +
+                " ORDER BY DATA_LANC DESC";
+        Cursor cursor =  db.rawQuery(sql_consuta,null);
+        if(cursor != null) {
+            cursor.moveToFirst();
+            if (cursor.getCount() != 0) {
+                Integer ID = cursor.getInt(0);
+                Float VALOR = cursor.getFloat(1);
+                String TIPO_LANC = cursor.getString(2);
+                String DATA_LANC = cursor.getString(3);
+                String DESC_LANC = cursor.getString(4);
+                /*String myFormat = "dd/MM/yyyy";
+                DateFormat formataData = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));*/
+                DateFormat formatUS = new SimpleDateFormat("yyyy/MM/dd");
+                Date date = null;
+                try {
+                    date = formatUS.parse(DATA_LANC);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                //Depois formata data
+                DateFormat formatBR = new SimpleDateFormat("dd/mm/yyyy");
+                String dateFormated = formatBR.format(date);
+
+                FinancialModel financialModel = new FinancialModel(ID , VALOR, date, TIPO_LANC, DESC_LANC);
+                listFinancialModel.add(financialModel);
+
+                while (cursor.moveToNext()) {
+                    ID = cursor.getInt(0);
+                    VALOR = cursor.getFloat(1);
+                    TIPO_LANC = cursor.getString(2);
+                    DATA_LANC = cursor.getString(3);
+                    DESC_LANC = cursor.getString(4);
+                    date = null;
+                    try {
+                        date = formatUS.parse(DATA_LANC);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    financialModel = new FinancialModel(ID , VALOR, date, TIPO_LANC, DESC_LANC);
+                    listFinancialModel.add(financialModel);
+                }
+
+                cursor.close();
+            }
+        }
+
+        return listFinancialModel;
+    }
+    
+    public Float vlProv(){
+        Integer i = 0;
+        Float total = i.floatValue();
+
+        SQLiteDatabase db = getReadableDatabase();
+        String sql_total = "SELECT " +
+                " sum(financas.valor) AS CRED" +
+                " FROM financas " +
+                " WHERE financas.tipo_lancamento = 'C'";
+        Cursor cursor =  db.rawQuery(sql_total,null);
+        if(cursor != null) {
+            cursor.moveToFirst();
+            String controle;
+            controle = cursor.getString(0);
+            total = Float.parseFloat(controle);
+
+        }
+
+
+        return total;
+    }
+    
+    public Float vlDeb(){
+        Integer i = 0;
+        Float total = i.floatValue();
+
+        SQLiteDatabase db = getReadableDatabase();
+        String sql_deb = "SELECT " +
+                " sum(financas.valor) AS CRED" +
+                " FROM financas " +
+                " WHERE financas.tipo_lancamento = 'D'";
+
+
+        Cursor cursor =  db.rawQuery(sql_deb,null);
+
+        if(cursor != null) {
+            cursor.moveToFirst();
+            String controle;
+            controle = cursor.getString(0);
+            total = Float.parseFloat(controle);
+
+        }
+        return total;
+
+    }
+
+    public Float vlSaldo(){
+        //Integer i = 0;
+        Float total;// = i.floatValue();
+
+        Float c = this.vlProv();
+        Float d = this.vlDeb();
+
+        total = c - d;
+
+        return total;
+
+    }
+    
+    
+
+
 
 }
 

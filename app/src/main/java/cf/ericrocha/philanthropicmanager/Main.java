@@ -39,7 +39,7 @@ public class Main extends AppCompatActivity {
     }
 
     public void financial(View view){
-        Intent intent = new Intent(this, teste.class);
+        Intent intent = new Intent(this, financial.class);
         startActivity(intent);
         finishAffinity();
     }

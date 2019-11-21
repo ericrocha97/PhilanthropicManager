@@ -1,16 +1,36 @@
 package cf.ericrocha.philanthropicmanager;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.tabs.TabLayout;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import cf.ericrocha.philanthropicmanager.adapter.Adapter_financial;
+import cf.ericrocha.philanthropicmanager.helper.DBHelper;
+import cf.ericrocha.philanthropicmanager.model.FinancialModel;
 
 
 public class financial extends AppCompatActivity {
+
+    DBHelper db;
+    private AlertDialog alert;
+    private RecyclerView recyclerView;
+    TextView tx_prov;
+    TextView tx_desc;
+    TextView tx_saldo;
+
+    private List<FinancialModel> listFinancialModel = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,18 +38,48 @@ public class financial extends AppCompatActivity {
         setContentView(R.layout.activity_financial);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        //getSupportActionBar().setTitle(getString(R.string.btn_financial));
+        getSupportActionBar().setTitle(getString(R.string.btn_financial));
+        db = new DBHelper(this);
+        recyclerView = findViewById(R.id.view_financial);
+        //AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        this.createFinancial();
 
-        AbasAdapter adapter = new AbasAdapter(getSupportFragmentManager());
-        adapter.adicionar( new PrimeiroFragment() , getString(R.string.tab_1));
-        adapter.adicionar( new SegundoFragment(), getString(R.string.tab_2));
+        if(!listFinancialModel.isEmpty()) {
+            Adapter_financial adapter = new Adapter_financial(listFinancialModel);
 
-        ViewPager viewPager = findViewById(R.id.abas_view_pager);
-        viewPager.setAdapter(adapter);
+            RecyclerView.LayoutManager layoutManager = new
+                    LinearLayoutManager(getApplicationContext());
+            recyclerView.setLayoutManager(layoutManager);
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+            recyclerView.setHasFixedSize(true);
 
+            recyclerView.addItemDecoration(new DividerItemDecoration(this,
+                    LinearLayout.VERTICAL));
+            recyclerView.setAdapter(adapter);
+        }
+
+        tx_prov = findViewById(R.id.tx_vl_prov);
+        tx_desc = findViewById(R.id.tx_vl_desc);
+        tx_saldo = findViewById(R.id.tx_vl_saldo);
+
+        Float cc = db.vlProv();
+        Float dd = db.vlDeb();
+        Float st = db.vlSaldo();
+
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+
+        tx_prov.setText("R$ "+ df.format(cc));
+        tx_desc.setText("R$ "+ df.format(dd));
+        tx_saldo.setText("R$ "+ df.format(st));
+
+
+
+
+    }
+
+    private void createFinancial() {
+        listFinancialModel = db.listFinanc();
     }
 
     @Override
