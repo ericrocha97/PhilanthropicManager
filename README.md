@@ -20,7 +20,7 @@
     - [x] Gravar os dados no banco
     - [x] Validar campos
 - [ ] Financeiro
-    - [ ] Criar tela de consulta de lançamentos
+    - [x] Criar tela de consulta de lançamentos
     - [ ] Criar a tela de registro de lançamentos
     - [ ] Editar lançamentos
     - [ ] Deletar lançamentos
