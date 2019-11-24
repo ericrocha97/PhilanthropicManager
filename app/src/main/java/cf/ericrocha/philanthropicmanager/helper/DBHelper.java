@@ -794,6 +794,34 @@ public class DBHelper extends SQLiteOpenHelper {
         return total;
 
     }
+
+    public void addorEditFinancial(Integer ID, Float val, String tipo, String descricao, Date dt){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        String myFormat = "yyyy/MM/dd"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        String dt_fin = (sdf.format(dt.getTime()));
+
+
+        if(ID == 0){
+            //insert
+            String sql = "INSERT INTO financas (valor,tipo_lancamento,desc_lancamento,dt_lancamento)" +
+                    "VALUES('"+val+"','"+tipo+"','"+descricao+"','"+dt_fin+"')";
+            db.execSQL(sql);
+        }else{
+            //update
+            //TODO: REALIZAR O UPDATE
+
+        }
+
+        /*cod_lancamento INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                " valor FLOAT NOT NULL, " +
+                " tipo_lancamento CHARACTER(1) NOT NULL, " +
+                " desc_lancamento TEXT NOT NULL, " +
+                " dt_lancamento DATE NOT NULL)*/
+
+
+    }
     
     
 

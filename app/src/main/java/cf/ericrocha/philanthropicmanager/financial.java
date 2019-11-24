@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -98,6 +99,11 @@ public class financial extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         startActivity(new Intent(this, Main.class));
+        finishAffinity();
+    }
+
+    public void new_fin(View v){
+        startActivity(new Intent(this, new_financial.class));
         finishAffinity();
     }
 

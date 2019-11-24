@@ -15,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".new_financial"></activity>
+        <activity android:name=".new_financial"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinancialTheme"/>
         <activity
             android:name=".members"
             android:screenOrientation="portrait"
