@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,7 +29,8 @@ public class new_financial extends AppCompatActivity {
     EditText fin_desc;
     EditText fin_date;
     Spinner fin_tipo;
-    //TODO: RECEBER OS DADOS PARA UPDATE
+    Integer ID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +40,18 @@ public class new_financial extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle("Lançamentos");
         db = new DBHelper(this);
+        Intent it = getIntent();
+        ID = it.getIntExtra("ID",0);
+        Float valor = it.getFloatExtra("valor",0);
+        String tipo_lanc = it.getStringExtra("tipo_lanc");
+        String desc_lanc = it.getStringExtra("desc_lanc");
+        String dtnasc = it.getStringExtra("dtnasc");
+
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+
         fin_valor = findViewById(R.id.fin_valor_ed);
-        fin_valor.addTextChangedListener(new NumberTextWatcher(fin_valor, "#,###"));
+
 
         fin_date = findViewById(R.id.fin_data_ed);
         fin_date.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +66,22 @@ public class new_financial extends AppCompatActivity {
         fin_desc = findViewById(R.id.fin_desc_ed);
 
         fin_tipo = findViewById(R.id.fin_tipo);
+
+
+        if(ID != 0){
+
+            fin_valor.setText("R$ " + df.format(valor));
+            fin_desc.setText(desc_lanc);
+            fin_date.setText(dtnasc);
+            if(tipo_lanc.equals("C")){
+                fin_tipo.setSelection(1);
+            }else{
+                fin_tipo.setSelection(2);
+            }
+            fin_valor.addTextChangedListener(new NumberTextWatcher(fin_valor, "#,###"));
+        }else{
+            fin_valor.addTextChangedListener(new NumberTextWatcher(fin_valor, "#,###"));
+        }
 
 
     }
@@ -132,14 +160,33 @@ public class new_financial extends AppCompatActivity {
             if(tipo==2){
                 tipo_c = "D";
             }
-            db.addorEditFinancial(0,val_real,tipo_c,descr,dataFormatada);
-            Clear();
-            Toast.makeText(this, "Lançamento realizado com sucesso!", Toast.LENGTH_SHORT).show();
+            if(ID==0){
+                db.addorEditFinancial(0,val_real,tipo_c,descr,dataFormatada);
+                Clear();
+                Toast.makeText(this, "Lançamento realizado com sucesso!", Toast.LENGTH_SHORT).show();
+            }else{
+                db.addorEditFinancial(ID,val_real,tipo_c,descr,dataFormatada);
+                Toast.makeText(this, "Lançamento alterado com sucesso!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, financial.class));
+                finishAffinity();
+            }
+
 
         }
 
 
 
+    }
+
+    public void canceFinancial(View v){
+        if(ID==0){
+            Clear();
+            Toast.makeText(this, "Cadastro cancelado!", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "Alteração cancelada!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, financial.class));
+            finishAffinity();
+        }
     }
 
     public void Clear(){

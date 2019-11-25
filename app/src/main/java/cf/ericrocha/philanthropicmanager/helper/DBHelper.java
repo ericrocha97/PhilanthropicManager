@@ -742,15 +742,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
         String sql_total = "SELECT " +
-                " sum(financas.valor) AS CRED" +
+                " ifnull(sum(financas.valor),0) AS CRED" +
                 " FROM financas " +
                 " WHERE financas.tipo_lancamento = 'C'";
         Cursor cursor =  db.rawQuery(sql_total,null);
         if(cursor != null) {
             cursor.moveToFirst();
-            String controle;
+            String controle = "";
             controle = cursor.getString(0);
-            total = Float.parseFloat(controle);
+            if(!controle.equals("0")){
+                total = Float.parseFloat(controle);
+            }else{
+                total = i.floatValue();
+            }
 
         }
 
@@ -764,7 +768,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
         String sql_deb = "SELECT " +
-                " sum(financas.valor) AS CRED" +
+                " ifnull(sum(financas.valor),0) AS CRED" +
                 " FROM financas " +
                 " WHERE financas.tipo_lancamento = 'D'";
 
@@ -773,9 +777,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if(cursor != null) {
             cursor.moveToFirst();
-            String controle;
+            String controle = "";
             controle = cursor.getString(0);
-            total = Float.parseFloat(controle);
+            if(!controle.equals("0")){
+                total = Float.parseFloat(controle);
+            }else{
+                total = i.floatValue();
+            }
+            /*
+            total = Float.parseFloat(controle);*/
 
         }
         return total;
@@ -783,8 +793,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Float vlSaldo(){
-        //Integer i = 0;
-        Float total;// = i.floatValue();
+        Integer i = 0;
+        Float total = i.floatValue();
 
         Float c = this.vlProv();
         Float d = this.vlDeb();
@@ -810,7 +820,15 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL(sql);
         }else{
             //update
-            //TODO: REALIZAR O UPDATE
+            String sql_update = "UPDATE financas SET " +
+                    "valor = '"+val+"'," +
+                    "tipo_lancamento = '"+tipo+"'," +
+                    "desc_lancamento = '"+descricao+"'," +
+                    "dt_lancamento = '"+dt_fin+"'" +
+                    " WHERE " +
+                    "cod_lancamento = "+ ID;
+
+            db.execSQL(sql_update);
 
         }
 
@@ -821,6 +839,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 " dt_lancamento DATE NOT NULL)*/
 
 
+    }
+
+    public void deleteFinancial(Integer ID){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("financas","cod_lancamento = "+ ID,null);
     }
     
     

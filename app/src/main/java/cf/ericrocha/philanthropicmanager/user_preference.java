@@ -91,76 +91,78 @@ public class user_preference extends AppCompatActivity {
         dados = db.getUserPreference();
         Integer tamanho = labels.size();
         Integer tamDados = dados.size();
+        if(tamDados!=0){
+            String[] campo = res.getStringArray(R.array.Administration);
 
+            //campo0
 
-        String[] campo = res.getStringArray(R.array.Administration);
+            for(Integer i = 0; i < tamanho; i++){
+                if(campo[i].equals(dados.get(0))){
+                    adm.setSelection(i);
+                    i = tamanho+1;
 
-        //campo0
-
-        for(Integer i = 0; i < tamanho; i++){
-            if(campo[i].equals(dados.get(0))){
-                adm.setSelection(i);
-                i = tamanho+1;
-
+                }
             }
-        }
 
-        //campo1
-        for(Integer i = 0; i < tamanho; i++){
+            //campo1
+            for(Integer i = 0; i < tamanho; i++){
                 if(labels.get(i).equals(dados.get(1))){
                     lider1.setSelection(i);
                     i = tamanho+1;
 
-               }
-        }
-        //campo2
-        for(Integer i = 0; i < tamanho; i++){
-            if(labels.get(i).equals(dados.get(2))){
-                lider2.setSelection(i);
-                i = tamanho+1;
-
+                }
             }
-        }
-        //campo3
-        for(Integer i = 0; i < tamanho; i++){
-            if(labels.get(i).equals(dados.get(3))){
-                lider3.setSelection(i);
-                i = tamanho+1;
+            //campo2
+            for(Integer i = 0; i < tamanho; i++){
+                if(labels.get(i).equals(dados.get(2))){
+                    lider2.setSelection(i);
+                    i = tamanho+1;
 
+                }
             }
-        }
-        //campo4
-        for(Integer i = 0; i < tamanho; i++){
-            if(labels.get(i).equals(dados.get(4))){
-                tesoureiro.setSelection(i);
-                i = tamanho+1;
+            //campo3
+            for(Integer i = 0; i < tamanho; i++){
+                if(labels.get(i).equals(dados.get(3))){
+                    lider3.setSelection(i);
+                    i = tamanho+1;
 
+                }
             }
-        }
-        //campo5
-        for(Integer i = 0; i < tamanho; i++){
-            if(labels.get(i).equals(dados.get(5))){
-                escrivao.setSelection(i);
-                i = tamanho+1;
+            //campo4
+            for(Integer i = 0; i < tamanho; i++){
+                if(labels.get(i).equals(dados.get(4))){
+                    tesoureiro.setSelection(i);
+                    i = tamanho+1;
 
+                }
             }
-        }
-        //campo6
-        for(Integer i = 0; i < tamanho; i++){
-            if(labels.get(i).equals(dados.get(6))){
-                pre_trab.setSelection(i);
-                i = tamanho+1;
+            //campo5
+            for(Integer i = 0; i < tamanho; i++){
+                if(labels.get(i).equals(dados.get(5))){
+                    escrivao.setSelection(i);
+                    i = tamanho+1;
 
+                }
             }
-        }
-        //campo7
-        for(Integer i = 0; i < tamanho; i++){
-            if(labels.get(i).equals(dados.get(7))){
-                pre_fila.setSelection(i);
-                i = tamanho+1;
+            //campo6
+            for(Integer i = 0; i < tamanho; i++){
+                if(labels.get(i).equals(dados.get(6))){
+                    pre_trab.setSelection(i);
+                    i = tamanho+1;
 
+                }
             }
+            //campo7
+            for(Integer i = 0; i < tamanho; i++){
+                if(labels.get(i).equals(dados.get(7))){
+                    pre_fila.setSelection(i);
+                    i = tamanho+1;
+
+                }
+            }
+
         }
+
 
         String t = "tes";
     }
