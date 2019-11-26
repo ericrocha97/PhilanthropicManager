@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-    tools:context=".works">
+    tools:context=".activity.works">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/work_title_l"

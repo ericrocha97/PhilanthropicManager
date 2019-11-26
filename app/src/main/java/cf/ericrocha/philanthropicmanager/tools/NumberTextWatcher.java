@@ -1,4 +1,4 @@
-package cf.ericrocha.philanthropicmanager;
+package cf.ericrocha.philanthropicmanager.tools;
 
 import android.text.Editable;
 import android.text.TextWatcher;

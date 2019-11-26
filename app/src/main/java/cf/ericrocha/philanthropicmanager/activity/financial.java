@@ -1,4 +1,4 @@
-package cf.ericrocha.philanthropicmanager;
+package cf.ericrocha.philanthropicmanager.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import cf.ericrocha.philanthropicmanager.activity.RecyclerItemClickListener;
+import cf.ericrocha.philanthropicmanager.R;
 import cf.ericrocha.philanthropicmanager.adapter.Adapter_financial;
 import cf.ericrocha.philanthropicmanager.helper.DBHelper;
 import cf.ericrocha.philanthropicmanager.model.FinancialModel;

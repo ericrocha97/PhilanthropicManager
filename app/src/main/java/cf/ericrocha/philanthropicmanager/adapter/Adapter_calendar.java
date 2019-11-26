@@ -16,10 +16,10 @@ import java.util.Locale;
 import cf.ericrocha.philanthropicmanager.R;
 import cf.ericrocha.philanthropicmanager.model.CalenderModel;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
+public class Adapter_calendar extends RecyclerView.Adapter<Adapter_calendar.MyViewHolder> {
     private List<CalenderModel> listCalenderModel;
 
-    public Adapter(List<CalenderModel> list) {
+    public Adapter_calendar(List<CalenderModel> list) {
         this.listCalenderModel = list;
     }
 

@@ -1,4 +1,4 @@
-package cf.ericrocha.philanthropicmanager;
+package cf.ericrocha.philanthropicmanager.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -19,7 +19,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import cf.ericrocha.philanthropicmanager.R;
 import cf.ericrocha.philanthropicmanager.helper.DBHelper;
+import cf.ericrocha.philanthropicmanager.tools.NumberTextWatcher;
 
 public class new_financial extends AppCompatActivity {
 

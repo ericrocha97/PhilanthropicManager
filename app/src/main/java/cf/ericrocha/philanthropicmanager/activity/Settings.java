@@ -1,4 +1,4 @@
-package cf.ericrocha.philanthropicmanager;
+package cf.ericrocha.philanthropicmanager.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import cf.ericrocha.philanthropicmanager.R;
 
 public class Settings extends AppCompatActivity {
 
@@ -28,10 +30,6 @@ public class Settings extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void general_settings(View view){
-        Intent intent = new Intent(this, general_settings.class);
-        startActivity(intent);
-    }
 
 
     @Override

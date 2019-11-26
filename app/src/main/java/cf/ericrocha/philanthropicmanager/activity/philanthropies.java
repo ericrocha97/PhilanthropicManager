@@ -1,14 +1,12 @@
-package cf.ericrocha.philanthropicmanager;
+package cf.ericrocha.philanthropicmanager.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,23 +17,22 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
+import cf.ericrocha.philanthropicmanager.R;
 import cf.ericrocha.philanthropicmanager.helper.DBHelper;
 
-public class works extends AppCompatActivity {
+
+public class philanthropies extends AppCompatActivity {
+
 
     DBHelper db;
-    EditText ed_dt_work;
-    EditText ed_work;
-    EditText ed_desc_work;
-    EditText ed_member_work;
-    Integer ID;
-    Spinner tt;
-    List<String> labels;
-
+    EditText ed_dt_phil;
+    EditText ed_phil;
+    EditText ed_desc_phil;
+    EditText ed_place_phil;
     TextInputLayout test;
+    Integer ID;
 
     java.util.Calendar myCalendar = java.util.Calendar.getInstance();
 
@@ -61,71 +58,62 @@ public class works extends AppCompatActivity {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
 
-        ed_dt_work.setText(sdf.format(myCalendar.getTime()));
+        ed_dt_phil.setText(sdf.format(myCalendar.getTime()));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_works);
+        setContentView(R.layout.activity_philanthropies);
         Intent it = getIntent();
         ID = it.getIntExtra("ID",0);
         String TITULO = it.getStringExtra("TITULO");
         String DESC = it.getStringExtra("DESC");
         String EXTRA = it.getStringExtra("EXTRA");
         String DATA = it.getStringExtra("DATA");
-
         db = new DBHelper(this);
-        test = findViewById(R.id.work_date_l);
+        test = findViewById(R.id.philanthropy_date_l);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(works.this, date, myCalendar
+                new DatePickerDialog(philanthropies.this, date, myCalendar
                         .get(java.util.Calendar.YEAR), myCalendar.get(java.util.Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        myCalendar.get(java.util.Calendar.DAY_OF_MONTH)).show();
             }
         });
-        ed_dt_work = findViewById(R.id.work_date_ed);
-        ed_dt_work.setOnClickListener(new View.OnClickListener() {
+        ed_dt_phil = findViewById(R.id.philanthropy_date_ed);
+        ed_dt_phil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(works.this, date, myCalendar
+                new DatePickerDialog(philanthropies.this, date, myCalendar
                         .get(java.util.Calendar.YEAR), myCalendar.get(java.util.Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-        ed_work = findViewById(R.id.work_title_ed);
-        ed_desc_work = findViewById(R.id.work_desc_ed);
-        //ed_member_work = findViewById(R.id.work_member_ed);
-        tt = findViewById(R.id.teste_t);
-        loadSpinnerData();
+
+
+        ed_phil = findViewById(R.id.philanthropy_title_ed);
+        ed_desc_phil = findViewById(R.id.philanthropy_desc_ed);
+        ed_place_phil = findViewById(R.id.philanthropy_place_ed);
+
         if(ID != 0){
-            ed_work.setText(TITULO);
-            ed_desc_work.setText(DESC);
-            Integer tamanho = labels.size();
-            for(Integer i = 0; i < tamanho; i++){
-                if(labels.get(i).equals(EXTRA)){
-                    tt.setSelection(i);
-                }
-            }
-            //ed_member_work.setText(EXTRA);
-            ed_dt_work.setText(DATA);
+            ed_phil.setText(TITULO);
+            ed_desc_phil.setText(DESC);
+            ed_place_phil.setText(EXTRA);
+            ed_dt_phil.setText(DATA);
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.btn_works));
+        getSupportActionBar().setTitle(getString(R.string.btn_philanthropies));
     }
-
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 if(ID != 0){
-                    startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.Calendar.class));
+                    startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.activity.Calendar.class));
                     finishAffinity();
                 }else {
                     startActivity(new Intent(this, Main.class));
@@ -141,30 +129,27 @@ public class works extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         if(ID != 0){
-            startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.Calendar.class));
+            startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.activity.Calendar.class));
             finishAffinity();
         }else {
             startActivity(new Intent(this, Main.class));
             finishAffinity();
         }
     }
+
+
     public void clear(){
-        ed_work.setText("");
-        ed_desc_work.setText("");
-        ed_dt_work.setText("");
-        tt.setSelection(0);
-        //ed_member_work.setText("");
+        ed_phil.setText("");
+        ed_desc_phil.setText("");
+        ed_dt_phil.setText("");
+        ed_place_phil.setText("");
     }
 
-    public void work_Confirm(View view){
-
-        String titulo = ed_work.getText().toString().trim();
-        String desc = ed_desc_work.getText().toString().trim();
-        String dt = ed_dt_work.getText().toString().trim();
-        //String membro = "TESTE";//ed_member_work.getText().toString().trim();
-        String membro = tt.getSelectedItem().toString();
-        String j = "jj";
-
+    public void philanthropies_Confirm(View view){
+        String titulo = ed_phil.getText().toString().trim();
+        String desc = ed_desc_phil.getText().toString().trim();
+        String dt = ed_dt_phil.getText().toString().trim();
+        String lugar = ed_place_phil.getText().toString().trim();
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         //SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
         SimpleDateFormat formato = new SimpleDateFormat(myFormat,new Locale("pt","BR"));
@@ -174,18 +159,18 @@ public class works extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Integer SpinnerSelect = tt.getSelectedItemPosition();
-        if(titulo.equals("") || desc.equals("") || dt.equals("") || membro.equals("") || SpinnerSelect.equals(0)){
+
+        if(titulo.equals("") || desc.equals("") || dt.equals("") || lugar.equals("")){
             Toast.makeText(this,"Favor preencher todos os campos!", Toast.LENGTH_SHORT).show();
         }else{
             if(ID != 0){
-                db.addOrEditWork(ID,titulo,desc,membro,dataFormatada);
+                db.addOrEditPhilanthropies(ID,titulo,lugar, desc,dataFormatada);
                 Toast.makeText(this,"Cadastro alterado com sucesso!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.Calendar.class));
+                startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.activity.Calendar.class));
                 finishAffinity();
 
             }else{
-                db.addOrEditWork(0,titulo,desc,membro,dataFormatada);
+                db.addOrEditPhilanthropies(0,titulo,lugar, desc,dataFormatada);
                 Toast.makeText(this,"Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
                 clear();
             }
@@ -196,29 +181,13 @@ public class works extends AppCompatActivity {
 
     }
 
-    public void work_Cancel(View view){
+    public void philanthropies_Cancel(View view){
         if(ID != 0){
-            startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.Calendar.class));
+            startActivity(new Intent(this, cf.ericrocha.philanthropicmanager.activity.Calendar.class));
             finishAffinity();
-        }else{
-            Toast.makeText(this,"Cadastro cancelado!", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this, "Cadastro cancelado!", Toast.LENGTH_SHORT).show();
             clear();
         }
-
-    }
-
-    private void loadSpinnerData() {
-        //DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-        labels = db.getAllMembers();
-        labels.add(0,"Selecione um membro");
-
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, labels);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
-        tt.setAdapter(dataAdapter);
     }
 }

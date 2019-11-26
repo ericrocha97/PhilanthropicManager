@@ -1,4 +1,4 @@
-package cf.ericrocha.philanthropicmanager;
+package cf.ericrocha.philanthropicmanager.activity;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import cf.ericrocha.philanthropicmanager.R;
 import cf.ericrocha.philanthropicmanager.helper.DBHelper;
+import cf.ericrocha.philanthropicmanager.model.session;
 
 public class Main extends AppCompatActivity {
 
@@ -54,10 +56,6 @@ public class Main extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void documents(View view){
-        Intent intent = new Intent(this, documents.class);
-        startActivity(intent);
-    }
 
     public void settings(View view){
         Intent intent = new Intent(this, Settings.class);

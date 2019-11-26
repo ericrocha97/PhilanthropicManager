@@ -1,4 +1,4 @@
-package cf.ericrocha.philanthropicmanager;
+package cf.ericrocha.philanthropicmanager.activity;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +9,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import cf.ericrocha.philanthropicmanager.R;
 import cf.ericrocha.philanthropicmanager.helper.DBHelper;
+import cf.ericrocha.philanthropicmanager.model.session;
 
 public class Login extends AppCompatActivity {
 
@@ -35,20 +37,36 @@ public class Login extends AppCompatActivity {
 
         String user = username.getText().toString().trim();
         String pwd = password.getText().toString().trim();
-        Boolean res = db.checkUser(user, pwd);
-        if(res)
-        {
-            Session.setLogin(user);
-            Session.setUsername(db.nameUser(user,pwd));
-            Intent intent = new Intent(this, Main.class);
-            intent.putExtra("Username", Session.getUsername());
-           // intent.putExtra("class", );
-            startActivity(intent);
+        if(!user.isEmpty() && !pwd.isEmpty()){
+            Boolean res = db.checkUser(user, pwd);
+            if(res)
+            {
+                Session.setLogin(user);
+                Session.setUsername(db.nameUser(user,pwd));
+                Intent intent = new Intent(this, Main.class);
+                intent.putExtra("Username", Session.getUsername());
+                // intent.putExtra("class", );
+                startActivity(intent);
+            }
+            else
+            {
+                Toast.makeText(Login.this,"Usuario ou senha incorretos!", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            if(user.isEmpty()){
+                username.setError("Digite o usuário");
+                username.requestFocus();
+            }else{
+                if(pwd.isEmpty()){
+                    password.setError("Digite a senha",null);
+                    password.requestFocus();
+                }
+            }
+
         }
-        else
-        {
-            Toast.makeText(Login.this,"Usuario ou senha incorretos!", Toast.LENGTH_SHORT).show();
-        }
+
+
+
 
         /*Intent intent = new Intent(this, Main.class);
         startActivity(intent);*/

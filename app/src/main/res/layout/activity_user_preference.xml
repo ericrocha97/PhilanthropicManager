@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-    tools:context=".user_preference">
+    tools:context=".activity.user_preference">
 
         <TextView
             android:id="@+id/tx_administration"

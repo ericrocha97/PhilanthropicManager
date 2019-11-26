@@ -9,7 +9,7 @@ android:fillViewport="true">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".members">
+        tools:context=".activity.members">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/member_view"

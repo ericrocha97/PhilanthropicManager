@@ -1,4 +1,4 @@
-package cf.ericrocha.philanthropicmanager;
+package cf.ericrocha.philanthropicmanager.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.ParseException;
@@ -20,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import cf.ericrocha.philanthropicmanager.R;
 import cf.ericrocha.philanthropicmanager.helper.DBHelper;
 
 public class new_user extends AppCompatActivity {
@@ -102,6 +105,14 @@ public class new_user extends AppCompatActivity {
         ed_telefone = findViewById(R.id.user_tel_ed);
         ed_nivel = findViewById(R.id.level);
         ed_pwd = findViewById(R.id.user_pwd_ed);
+
+        SimpleMaskFormatter smf = new SimpleMaskFormatter("(NN) NNNNN-NNNN");
+        MaskTextWatcher mtw = new MaskTextWatcher(ed_telefone, smf);
+        ed_telefone.addTextChangedListener(mtw);
+
+        SimpleMaskFormatter cepmask = new SimpleMaskFormatter("NNNNN-NNN");
+        MaskTextWatcher cepwatch = new MaskTextWatcher(ed_cep, cepmask);
+        ed_cep.addTextChangedListener(cepwatch);
 
 
         if(ID != 0){

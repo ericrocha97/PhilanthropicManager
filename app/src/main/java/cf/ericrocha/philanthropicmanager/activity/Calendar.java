@@ -1,4 +1,4 @@
-package cf.ericrocha.philanthropicmanager;
+package cf.ericrocha.philanthropicmanager.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,8 +21,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import cf.ericrocha.philanthropicmanager.activity.RecyclerItemClickListener;
-import cf.ericrocha.philanthropicmanager.adapter.Adapter;
+import cf.ericrocha.philanthropicmanager.R;
+import cf.ericrocha.philanthropicmanager.adapter.Adapter_calendar;
 import cf.ericrocha.philanthropicmanager.helper.DBHelper;
 import cf.ericrocha.philanthropicmanager.model.CalenderModel;
 
@@ -47,7 +47,7 @@ public class Calendar extends AppCompatActivity {
         this.createCalendar();
 
         if(!listCalenderModel.isEmpty()){
-            Adapter adapter = new Adapter( listCalenderModel );
+            Adapter_calendar adapterCalendar = new Adapter_calendar( listCalenderModel );
 
             RecyclerView.LayoutManager layoutManager = new
                     LinearLayoutManager(getApplicationContext());
@@ -57,7 +57,7 @@ public class Calendar extends AppCompatActivity {
 
             recyclerView.addItemDecoration( new DividerItemDecoration(this,
                     LinearLayout.VERTICAL));
-            recyclerView.setAdapter( adapter );
+            recyclerView.setAdapter(adapterCalendar);
 
             recyclerView.addOnItemTouchListener(
                     new RecyclerItemClickListener(
@@ -77,14 +77,14 @@ public class Calendar extends AppCompatActivity {
                                             if(calenderModel.getCor().equals(0)){
                                                 db.deleteWork(calenderModel.getId());
                                                 listCalenderModel.remove(position);
-                                                Adapter adapter = new Adapter( listCalenderModel );
-                                                recyclerView.setAdapter( adapter );
+                                                Adapter_calendar adapterCalendar = new Adapter_calendar( listCalenderModel );
+                                                recyclerView.setAdapter(adapterCalendar);
 
                                             }else{
                                                 db.deletePhilanthropies(calenderModel.getId());
                                                 listCalenderModel.remove(position);
-                                                Adapter adapter = new Adapter( listCalenderModel );
-                                                recyclerView.setAdapter( adapter );
+                                                Adapter_calendar adapterCalendar = new Adapter_calendar( listCalenderModel );
+                                                recyclerView.setAdapter(adapterCalendar);
                                             }
 
                                             Toast.makeText( getApplicationContext(),"Evento deletado",Toast.LENGTH_LONG).show();

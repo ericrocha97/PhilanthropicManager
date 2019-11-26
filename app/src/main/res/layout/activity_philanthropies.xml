@@ -9,7 +9,7 @@ android:fillViewport="true">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
-    tools:context=".philanthropies">
+    tools:context=".activity.philanthropies">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/philanthropy_title_l"

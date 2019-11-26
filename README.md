@@ -24,7 +24,7 @@
     - [X] Criar a tela de registro de lançamentos
     - [X] Editar lançamentos
     - [X] Deletar lançamentos
-- [ ] Configurações
+- [X] Configurações
     - [x] Membros
         - [x] Consula de membros
         - [x] Cadastro de membros
@@ -34,6 +34,5 @@
         - [X] Ajustar campos para buscar membros cadastrados
         - [X] Gravar dados em banco
         - [X] Ao abrir a tela buscar os dados ja gravados em banco
-    - [ ] Configurações gerais
-         - [ ] Verificar a necessidade do mesmo
+
 
